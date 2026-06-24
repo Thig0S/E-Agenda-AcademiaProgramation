@@ -1,3 +1,6 @@
 {
-  "dotnet.defaultSolution": "EAgendaWeb.slnx"
+  "dotnet.defaultSolution": "EAgendaWeb.slnx",
+  "dataworkspace.excludedProjects": [
+    "DboEAgenda/DboEAgenda.sqlproj"
+  ]
 }
