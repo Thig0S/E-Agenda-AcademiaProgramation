@@ -8,7 +8,6 @@ public static class InjecaoDependencia
 {
     public static void AddInfraRepositories(this IServiceCollection services)
     {
-
         services.AddScoped<ISqlConnectionFactory, SqlConnectionFactory>();
         services.AddScoped<IRepositorioFornecedor, RepositorioFornecedorEmSql>();
     }
