@@ -7,6 +7,10 @@ public class ContatoProfile : Profile
 {
     public ContatoProfile()
     {
+        //Listagem
         CreateMap<DetalhesContatoDto, ListarContatoViewModel>();
+
+        //Cadastro
+        CreateMap<CadastroContatoViewModel, CadastroContatoDto>();
     }
 }
