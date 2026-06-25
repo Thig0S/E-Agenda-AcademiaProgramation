@@ -31,3 +31,14 @@ public record ExcluirContatoViewModel(
     string? Cargo,
     string? Email
 );
+public record EditarContatoViewModel(
+    string Id,
+    [Required(ErrorMessage = "O campo \"Nome\" é obrigatório!")]
+    string Nome,
+    [Required(ErrorMessage = "O campo \"Telefone\" é obrigatório!")]
+    string Telefone,
+    [Required(ErrorMessage = "O campo \"Email\" é obrigatório!")]
+    string Email,
+    string? Empresa,
+    string? Cargo
+);

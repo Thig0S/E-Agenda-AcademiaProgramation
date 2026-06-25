@@ -66,8 +66,9 @@ public class ServicoContato
             c.Id.ToString(),
             c.Nome,
             c.Telefone,
+            c.Email,
             c.Empresa,
-            c.Cargo, c.Email)).ToList();
+            c.Cargo)).ToList();
     }
     internal Result<DetalhesContatoDto> SelecionarPorId(Guid id)
     {
@@ -77,8 +78,8 @@ public class ServicoContato
             return Result.Fail("Fornecedor não encontrado!");
 
         return Result.Ok(
-            new DetalhesContatoDto(contato.Id.ToString(), contato.Nome, contato.Telefone,
-            contato.Empresa!, contato.Cargo!, contato.Email)
+            new DetalhesContatoDto(contato.Id.ToString(), contato.Nome, contato.Telefone, contato.Email,
+            contato.Empresa!, contato.Cargo!)
             );
     }
 

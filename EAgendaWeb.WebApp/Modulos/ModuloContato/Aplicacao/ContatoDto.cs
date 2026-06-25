@@ -4,14 +4,14 @@ public record DetalhesContatoDto(
     string Id,
     string Nome,
     string Telefone,
-    string Empresa,
-    string Cargo,
-    string Email
+    string Email,
+    string? Empresa,
+    string? Cargo
 );
 public record CadastroContatoDto(
     string Nome,
     string Telefone,
     string Email,
-    string Empresa,
-    string Cargo
+    string? Empresa,
+    string? Cargo
 );

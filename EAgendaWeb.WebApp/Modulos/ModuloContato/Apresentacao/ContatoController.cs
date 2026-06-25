@@ -71,4 +71,13 @@ public class ContatoController : Controller
 
         return RedirectToAction(nameof(Listar));
     }
+    [HttpGet]
+    public ActionResult Editar(Guid id)
+    {
+        Result<DetalhesContatoDto> dto = servicoContato.SelecionarPorId(id);
+
+        EditarContatoViewModel vm = mapper.Map<EditarContatoViewModel>(dto.Value);
+
+        return View(vm);
+    }
 }
