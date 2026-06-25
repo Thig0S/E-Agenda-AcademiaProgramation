@@ -23,3 +23,11 @@ public record CadastroContatoViewModel(
     [Optional]
     string? Cargo
 );
+public record ExcluirContatoViewModel(
+    string Id,
+    string Nome,
+    string Telefone,
+    string Empresa,
+    string? Cargo,
+    string? Email
+);

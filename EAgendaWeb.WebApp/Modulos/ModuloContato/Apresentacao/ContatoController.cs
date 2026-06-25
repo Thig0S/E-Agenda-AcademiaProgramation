@@ -1,6 +1,7 @@
 using AutoMapper;
 using EAgendaWeb.WebApp.Compartilhado.Apresentacao.Extensions;
 using EAgendaWeb.WebApp.Modulos.ModuloContato.Aplicacao;
+using EAgendaWeb.WebApp.Modulos.ModuloContato.Dominio;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,5 +47,14 @@ public class ContatoController : Controller
         }
 
         return RedirectToAction(nameof(Listar));
+    }
+    [HttpGet]
+    public ActionResult Excluir(Guid id)
+    {
+        Result<DetalhesContatoDto> resultado = servicoContato.SelecionarPorId(id);
+
+        ExcluirContatoViewModel vm = mapper.Map<ExcluirContatoViewModel>(resultado.Value);
+
+        return View(vm);
     }
 }

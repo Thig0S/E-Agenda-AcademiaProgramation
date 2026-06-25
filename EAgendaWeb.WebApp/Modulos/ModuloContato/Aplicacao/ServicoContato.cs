@@ -1,3 +1,4 @@
+using AutoMapper;
 using EAgendaWeb.WebApp.Modulos.ModuloContato.Dominio;
 using FluentResults;
 
@@ -6,20 +7,12 @@ namespace EAgendaWeb.WebApp.Modulos.ModuloContato.Aplicacao;
 public class ServicoContato
 {
     private readonly IRepositorioContato repositorioContato;
+    private readonly IMapper mapper;
 
-    public ServicoContato(IRepositorioContato repositorioContato)
+    public ServicoContato(IRepositorioContato repositorioContato, IMapper mapper)
     {
         this.repositorioContato = repositorioContato;
-    }
-
-    public List<DetalhesContatoDto> SelecionarTodos()
-    {
-        return repositorioContato.SelecionarTodos().Select(c => new DetalhesContatoDto(
-            c.Id.ToString(),
-            c.Nome,
-            c.Telefone,
-            c.Empresa,
-            c.Cargo, c.Email)).ToList();
+        this.mapper = mapper;
     }
 
     internal Result Cadastrar(CadastroContatoDto dto)
@@ -66,5 +59,26 @@ public class ServicoContato
     private static Result Falha(string campo, string mensagem)
     {
         return Result.Fail(new FluentResults.Error(mensagem).WithMetadata("Campo", campo));
+    }
+    internal List<DetalhesContatoDto> SelecionarTodos()
+    {
+        return repositorioContato.SelecionarTodos().Select(c => new DetalhesContatoDto(
+            c.Id.ToString(),
+            c.Nome,
+            c.Telefone,
+            c.Empresa,
+            c.Cargo, c.Email)).ToList();
+    }
+    internal Result<DetalhesContatoDto> SelecionarPorId(Guid id)
+    {
+        Contato? contato = repositorioContato.SelecionarPorId(id);
+
+        if (contato == null)
+            return Result.Fail("Fornecedor não encontrado!");
+
+        return Result.Ok(
+            new DetalhesContatoDto(contato.Id.ToString(), contato.Nome, contato.Telefone,
+            contato.Empresa, contato.Cargo, contato.Email)
+            );
     }
 }
