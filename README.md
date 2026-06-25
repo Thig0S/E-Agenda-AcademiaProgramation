@@ -1,158 +1,109 @@
-# Controle de Medicamentos
+# 📋 Especificação do Projeto — Sistema de Gestão
 
-## Projeto
-
-Desenvolvido durante o curso Fullstack da [Academia do Programador](https://www.academiadoprogramador.net) 2026
-
-## Funcionalidades
-
-### 1. Módulo de Fornecedores
-
-#### **Requisitos Funcionais**
-
-- O sistema deve permitir registrar novos fornecedores
-- O sistema deve permitir visualizar todos os fornecedores cadastrados
-- O sistema deve permitir editar fornecedores existentes
-- O sistema deve permitir excluir fornecedores cadastrados
-
-#### **Regras de Negócio**
-
-Campos obrigatórios:
-
-- Nome (3-100 caracteres)
-- Telefone (formatos válidos)
-- CNPJ (14 dígitos)
-
-> O sistema não deve permitir cadastro de fornecedores com mesmo CNPJ
+Este projeto consiste em um sistema integrado para gerenciamento de contatos, compromissos, tarefas e controle financeiro pessoal (categorias e despesas). Abaixo estão detalhados os requisitos funcionais e as regras de negócio para cada módulo.
 
 ---
 
-### 2. Módulo de Pacientes
+## 👥 1. Módulo de Contatos
 
-#### **Requisitos Funcionais**
+### Requisitos Funcionais
+- [x] Inserir novos contatos
+- [x] Editar contatos existentes
+- [x] Excluir contatos cadastrados
+- [x] Visualizar contatos cadastrados
 
-- O sistema deve permitir registrar novos pacientes
-- O sistema deve permitir visualizar todos os pacientes cadastrados
-- O sistema deve permitir editar pacientes existentes
-- O sistema deve permitir excluir pacientes cadastrados
+### Regras de Negócio
+| Campo | Tipo / Limitação | Obrigatoriedade |
+| :--- | :--- | :--- |
+| **Nome** | Texto (2 a 100 caracteres) | Obrigatório |
+| **Email** | Formato válido e único | Obrigatório |
+| **Telefone** | `(XX) XXXX-XXXX` ou `(XX) XXXXX-XXXX` (Único) | Obrigatório |
+| **Cargo** | Texto | Opcional |
+| **Empresa** | Texto | Opcional |
 
-#### **Regras de Negócio**
-
-Campos obrigatórios:
-
-- Nome (3-100 caracteres)
-- Telefone (formatos válidos: (XX) XXXX-XXXX ou (XX) XXXXX-XXXX)
-- Cartão do SUS (15 dígitos)
-- CPF (11 dígitos)
-
-> O sistema não deve permitir cadastro de pacientes com mesmo cartão do SUS
-
----
-
-### 3. Módulo de Medicamentos
-
-#### **Requisitos Funcionais**
-
-- O sistema deve permitir registrar novos medicamentos
-- O sistema deve permitir visualizar todos os medicamentos cadastrados
-- O sistema deve permitir editar medicamentos existentes
-- O sistema deve permitir excluir medicamentos cadastrados
-
-#### **Regras de Negócio**
-
-Campos obrigatórios:
-
-- Nome (3-100 caracteres)
-- Descrição (5-255 caracteres)
-- Quantidade em estoque (número positivo)
-- Fornecedor
-
-> O sistema deve destacar medicamentos com menos de 20 unidades como "em falta"
-
-> O sistema deve atualizar a quantidade quando o medicamento já estiver cadastrado
+> ⚠️ **Restrições:**
+> - Não é permitido o cadastro de contatos que compartilhem o mesmo e-mail e/ou telefone.
+> - Não é permitida a exclusão de um contato que possua compromissos vinculados.
 
 ---
 
-### 4. Módulo de Funcionários
+## 📅 2. Módulo de Compromissos
 
-#### **Requisitos Funcionais**
+### Requisitos Funcionais
+- [x] Inserir novos compromissos
+- [x] Editar compromissos existentes
+- [x] Excluir compromissos cadastrados
+- [x] Visualizar compromissos cadastrados
 
-- O sistema deve permitir registrar novos funcionários
-- O sistema deve permitir visualizar todos os funcionários cadastrados
-- O sistema deve permitir editar funcionários existentes
-- O sistema deve permitir excluir funcionários cadastrados
+### Regras de Negócio
+| Campo | Tipo / Limitação | Obrigatoriedade |
+| :--- | :--- | :--- |
+| **Assunto** | Texto (2 a 100 caracteres) | Obrigatório |
+| **Data de Ocorrência** | Data válida | Obrigatório |
+| **Hora de Início** | Horário válido | Obrigatório |
+| **Hora de Término** | Horário válido | Obrigatório |
+| **Tipo** | `Remoto` ou `Presencial` | Obrigatório |
+| **Local** | Texto (Obrigatório se *Presencial*) | Condicional |
+| **Link** | URL válida (Obrigatório se *Remoto*) | Condicional |
+| **Contato** | Vínculo com Módulo de Contatos | Opcional |
 
-#### **Regras de Negócio**
-
-Campos obrigatórios:
-
-- Nome (3-100 caracteres)
-- Telefone (formatos válidos)
-- CPF (11 dígitos)
-
-> O sistema não deve permitir cadastro de funcionários com mesmo CPF
-
----
-
-### 5. Módulo de Estoque
-
-#### 5.1 Requisições de Entrada
-
-#### **Requisitos Funcionais para Requisições de Entrada**
-
-- O sistema deve permitir registrar novas requisições de entrada
-- O sistema deve permitir visualizar todas as requisições de entrada
-
-#### **Regras de Negócio para Requisições de Entrada**
-
-Campos obrigatórios:
-
-- Data (válida)
-- Medicamento (seleção obrigatória)
-- Funcionário (seleção obrigatória)
-- Quantidade (número positivo)
-
-> O sistema deve atualizar o estoque ao registrar a requisição de entrada
+> ⚠️ **Restrições:**
+> - O sistema deve validar e impedir qualquer conflito de horários entre compromissos cadastrados.
 
 ---
 
-#### 5.2 Requisições de Saída
+## 🗂️ 3. Módulo de Categorias
 
-#### **Requisitos Funcionais para Requisições de Saída**
+### Requisitos Funcionais
+- [x] Cadastrar novas categorias
+- [x] Editar categorias existentes
+- [x] Excluir categorias
+- [x] Visualizar todas as categorias
+- [x] Visualizar despesas filtradas por uma categoria específica
 
-- O sistema deve permitir registrar novas requisições de saída
-- O sistema deve permitir visualizar todas as requisições de saída
-
-#### **Regras de Negócio para Requisições de Saída**
-
-Campos obrigatórios:
-
-- Data (válida)
-- Paciente (seleção obrigatória)
-- Medicamentos Requisitados (seleção obrigatória)
-
-> O sistema não deve permitir requisição que exceda o estoque disponível
-
-> O sistema deve subtrair a quantidade do estoque ao registrar a requisição
+### Regras de Negócio
+- **Campos Obrigatórios:** `Título` (Texto, 2 a 100 caracteres, único).
+- **Despesas:** São vinculadas posteriormente ao cadastro da categoria.
+- > ⚠️ **Restrição:** Não é permitida a exclusão de categorias que possuam despesas relacionadas.
 
 ---
 
-## Como utilizar
+## 💰 4. Módulo de Despesas
 
-1. Clone o repositório ou baixe o código fonte.
-2. Abra o terminal ou o prompt de comando e navegue até a pasta raiz
-3. Utilize o comando abaixo para restaurar as dependências do projeto.
+### Requisitos Funcionais
+- [x] Cadastrar novas despesas
+- [x] Editar despesas existentes
+- [x] Excluir despesas
+- [x] Visualizar todas as despesas
 
-   ```bash
-   dotnet restore
-   ```
+### Regras de Negócio
+| Campo | Tipo / Limitação | Obrigatoriedade |
+| :--- | :--- | :--- |
+| **Descrição** | Texto (2 a 100 caracteres) | Obrigatório |
+| **Valor** | Monetário ($ R$) | Obrigatório |
+| **Forma de Pagamento** | `À Vista`, `Crédito` ou `Débito` | Obrigatório |
+| **Categorias** | Vínculo com 1 ou mais Categorias | Obrigatório |
+| **Data de Ocorrência**| Data (Padrão: data atual do cadastro) | Opcional |
 
-4. Para executar o projeto compilando em tempo real
+---
 
-   ```bash
-   dotnet run --project EAgendaWeb.WebApp
-   ```
+## ⧉ 5. Módulo de Tarefas & Itens
 
-## Requisitos
+### Requisitos Funcionais (Tarefas)
+- [x] Cadastrar e editar tarefas
+- [x] Excluir tarefas
+- [x] Visualizar todas as tarefas (com filtros para *Pendentes* e *Concluídas*)
+- [x] Visualizar tarefas agrupadas por prioridade
 
-- .NET 10.0 SDK
+### Regras de Negócio (Tarefas)
+- **Campos Obrigatórios:**
+  - `Título` (2 a 100 caracteres)
+  - `Prioridade` (`Baixa`, `Normal`, `Alta`)
+  - `Data de Criação` e `Data de Conclusão`
+  - `Status de Conclusão` e `Percentual Concluído` (%)
+  - `Itens da Tarefa` (Opcional)
+
+### 5.1 Submódulo: Itens de Tarefas
+- **Funcionalidades:** Permitir adicionar, remover e marcar itens como concluídos.
+- **Campos Obrigatórios:** `Título` (2-100 caracteres), `Status de Conclusão` e Vínculo com a `Tarefa`.
+- > ⚙️ **Automação:** Ao concluir ou alterar o status de um item, o sistema deve recalcular automaticamente o percentual (`%`) de conclusão da tarefa pai.
