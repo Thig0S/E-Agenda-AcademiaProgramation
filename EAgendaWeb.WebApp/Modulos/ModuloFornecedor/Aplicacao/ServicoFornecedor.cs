@@ -1,5 +1,6 @@
 using FluentResults;
 using EAgendaWeb.WebApp.Modulos.ModuloFornecedor.Dominio;
+using EAgendaWeb.WebApp.Modulos.ModuloContato.Dominio;
 
 namespace EAgendaWeb.WebApp.Modulos.ModuloFornecedor.Aplicacao;
 

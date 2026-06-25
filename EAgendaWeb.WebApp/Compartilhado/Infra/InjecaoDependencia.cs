@@ -1,4 +1,6 @@
 using EAgendaWeb.WebApp.Compartilhado.Infra.Sql;
+using EAgendaWeb.WebApp.Modulos.ModuloContato.Dominio;
+using EAgendaWeb.WebApp.Modulos.ModuloContato.Infra;
 using EAgendaWeb.WebApp.Modulos.ModuloFornecedor.Dominio;
 using EAgendaWeb.WebApp.Modulos.ModuloFornecedor.Infra;
 
@@ -10,5 +12,6 @@ public static class InjecaoDependencia
     {
         services.AddScoped<ISqlConnectionFactory, SqlConnectionFactory>();
         services.AddScoped<IRepositorioFornecedor, RepositorioFornecedorEmSql>();
+        services.AddScoped<IRepositorioContato, RepositorioContatoEmSql>();
     }
 }

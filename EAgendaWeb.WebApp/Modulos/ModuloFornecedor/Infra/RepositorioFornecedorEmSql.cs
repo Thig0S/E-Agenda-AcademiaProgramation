@@ -2,6 +2,7 @@ using EAgendaWeb.WebApp.Compartilhado.Infra.Sql;
 using EAgendaWeb.WebApp.Modulos.ModuloFornecedor.Dominio;
 using Microsoft.Data.SqlClient;
 using Dapper;
+using EAgendaWeb.WebApp.Modulos.ModuloContato.Dominio;
 
 namespace EAgendaWeb.WebApp.Modulos.ModuloFornecedor.Infra;
 
