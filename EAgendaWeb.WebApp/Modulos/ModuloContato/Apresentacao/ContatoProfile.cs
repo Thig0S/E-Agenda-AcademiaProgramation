@@ -16,5 +16,6 @@ public class ContatoProfile : Profile
         CreateMap<Contato, DetalhesContatoDto>();
         CreateMap<DetalhesContatoDto, ExcluirContatoViewModel>();
         CreateMap<DetalhesContatoDto, EditarContatoViewModel>();
+        CreateMap<EditarContatoViewModel, EditarContatoDto>();
     }
 }

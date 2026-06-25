@@ -80,4 +80,18 @@ public class ContatoController : Controller
 
         return View(vm);
     }
+    [HttpPost]
+    public ActionResult Editar(EditarContatoViewModel vm)
+    {
+        EditarContatoDto dto = mapper.Map<EditarContatoDto>(vm);
+        Result resultado = servicoContato.Editar(dto);
+
+        if (resultado.IsFailed)
+        {
+            ModelState.AddModelError(resultado);
+
+            return View(vm);
+        }
+        return RedirectToAction(nameof(Listar));
+    }
 }

@@ -15,3 +15,11 @@ public record CadastroContatoDto(
     string? Empresa,
     string? Cargo
 );
+public record EditarContatoDto(
+    string Id,
+    string Nome,
+    string Telefone,
+    string Email,
+    string? Empresa,
+    string? Cargo
+);

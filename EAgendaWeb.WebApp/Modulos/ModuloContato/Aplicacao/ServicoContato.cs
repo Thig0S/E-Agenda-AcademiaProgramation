@@ -97,4 +97,20 @@ public class ServicoContato
         return Result.Ok();
 
     }
+
+    internal Result Editar(EditarContatoDto dto)
+    {
+        Guid guid = new(dto.Id);
+        Contato contatoAtualizado = new(dto.Nome, dto.Email, dto.Telefone, dto.Cargo!, dto.Empresa!);
+
+        if (ExisteContatoComMesmoTelefone(contatoAtualizado.Telefone, guid))
+            return Falha(nameof(dto.Telefone), "Já existe um Contato com este Telefone.");
+
+        if (ExiteContatoComMesmoEmail(contatoAtualizado.Email, guid))
+            return Falha(nameof(dto.Email), "Já existe um Contato com este Email.");
+
+        repositorioContato.Editar(guid, contatoAtualizado);
+
+        return Result.Ok();
+    }
 }
