@@ -43,10 +43,10 @@ else
                         </dl>
                         <dl class="row g-2 mb-4">
                             <dt class="col-5 text-secondary fw-semibold">Empresa</dt>
-                            <dd class="col-7 mb-0 text-break">@f.Empresa</dd>
+                            <dd class="col-7 mb-0 text-break">@(f.Empresa ?? "Não Informado")</dd>
 
                             <dt class="col-5 text-secondary fw-semibold">Cargo</dt>
-                            <dd class="col-7 mb-0 text-break">@f.Cargo</dd>
+                            <dd class="col-7 mb-0 text-break">@(f.Cargo ?? "Não Informado")</dd>
                         </dl>
 
                         <div class="d-flex flex-wrap gap-2 mt-auto justify-content-end">
