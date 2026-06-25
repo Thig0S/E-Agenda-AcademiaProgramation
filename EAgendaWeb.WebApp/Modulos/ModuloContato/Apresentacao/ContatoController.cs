@@ -57,4 +57,18 @@ public class ContatoController : Controller
 
         return View(vm);
     }
+    [HttpPost]
+    public ActionResult Excluir(ExcluirContatoViewModel vm)
+    {
+        Result resultado = servicoContato.Excluir(vm.Id);
+
+        if (resultado.IsFailed)
+        {
+            ModelState.AddModelError(resultado);
+
+            return View(vm);
+        }
+
+        return RedirectToAction(nameof(Listar));
+    }
 }

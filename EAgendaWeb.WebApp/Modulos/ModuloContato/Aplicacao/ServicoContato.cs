@@ -78,7 +78,22 @@ public class ServicoContato
 
         return Result.Ok(
             new DetalhesContatoDto(contato.Id.ToString(), contato.Nome, contato.Telefone,
-            contato.Empresa, contato.Cargo, contato.Email)
+            contato.Empresa!, contato.Cargo!, contato.Email)
             );
+    }
+
+    internal Result Excluir(string id)
+    {
+        Guid guid = new(id);
+
+        Result<DetalhesContatoDto> selecionarContato = SelecionarPorId(guid);
+
+        if (selecionarContato.IsFailed)
+            return Result.Fail("Contato Não Encontrado!");
+
+        repositorioContato.Excluir(guid);
+
+        return Result.Ok();
+
     }
 }
