@@ -13,7 +13,6 @@ public class Contato : EntidadeBase<Contato>
 
     public Contato()
     {
-
     }
 
     public Contato(string nome, string email, string telefone, string cargo, string empresa)
