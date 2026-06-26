@@ -1,6 +1,6 @@
 namespace EAgendaWeb.WebApp.Modulos.ModuloCompromisso.Dominio;
 
-public enum TipoEvento
+public enum TipoDeCompromisso
 {
     Remoto,
     Presencial

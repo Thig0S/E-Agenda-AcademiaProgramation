@@ -8,26 +8,26 @@ public class Compromisso : EntidadeBase<Compromisso>
     public string Assunto { get; set; }
     public DateTime DataOcorrencia { get; set; }
     public TimeOnly HoraInicio { get; set; }
-    public TimeOnly HoraTerminio { get; set; }
-    public TipoEvento TipoEvento { get; set; }
+    public TimeOnly HoraTermino { get; set; }
+    public TipoDeCompromisso TipoDeCompromisso { get; set; }
     public string? Local { get; set; }
     public string? Link { get; set; }
-    public Contato? Contato { get; set; }
+    public Guid? ContatoId { get; set; }
 
     public Compromisso(
         string assunto, DateTime dataOcorrencia,
-        TimeOnly horaInicio, TimeOnly horaTerminio,
-        TipoEvento tipoEvento, string? local = null,
-        string? link = null, Contato? contato = null)
+        TimeOnly horaInicio, TimeOnly horaTermino,
+        TipoDeCompromisso tipoEvento, string? local = null,
+        string? link = null, Guid? contatoId = null)
     {
         Assunto = assunto;
         DataOcorrencia = dataOcorrencia;
         HoraInicio = horaInicio;
-        HoraTerminio = horaTerminio;
-        TipoEvento = tipoEvento;
+        HoraTermino = horaTermino;
+        TipoDeCompromisso = tipoEvento;
         Local = local;
         Link = link;
-        Contato = contato;
+        ContatoId = contatoId;
     }
 
     public override void Atualizar(Compromisso entidadeAtualizada)
@@ -35,11 +35,11 @@ public class Compromisso : EntidadeBase<Compromisso>
         Assunto = entidadeAtualizada.Assunto;
         DataOcorrencia = entidadeAtualizada.DataOcorrencia;
         HoraInicio = entidadeAtualizada.HoraInicio;
-        HoraTerminio = entidadeAtualizada.HoraTerminio;
-        TipoEvento = entidadeAtualizada.TipoEvento;
+        HoraTermino = entidadeAtualizada.HoraTermino;
+        TipoDeCompromisso = entidadeAtualizada.TipoDeCompromisso;
         Local = entidadeAtualizada.Local;
         Link = entidadeAtualizada.Link;
-        Contato = entidadeAtualizada.Contato;
+        ContatoId = entidadeAtualizada.ContatoId;
     }
 
     public override List<string> Validar()
@@ -52,7 +52,7 @@ public class Compromisso : EntidadeBase<Compromisso>
         if (DataOcorrencia < DateTime.Now)
             erros.Add("A data do Compromisso deve ser posterior a data atual");
 
-        if (HoraTerminio < HoraInicio)
+        if (HoraTermino < HoraInicio)
             erros.Add("A Hora de Terminio deve ser POSTERIOR a hora de Inicio");
 
         return erros;

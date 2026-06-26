@@ -7,13 +7,11 @@ namespace EAgendaWeb.WebApp.Modulos.ModuloCompromisso.Infra;
 
 public class RepositorioCompromissoEmSql(ISqlConnectionFactory connectionFactory) : IRepositorioCompromisso
 {
-
     private const string InserirSql = """
-        INSERT INTO dbo.TBCompromissos (Id, Assunto, DataAcorrencia, HoraInicio, HoraTermino, TipoDeCompromisso, Local, ContatoId)
-        VALUES (@Id, @Assunto, @DataOcorrencia, @HoraInicio, @HoraTermino, @TipoDeCompromisso, @Local, @ContatoId);
-    """;
+    INSERT INTO dbo.TBCompromissos (Id, Assunto, DataOcorrencia, HoraInicio, HoraTermino, TipoDeCompromisso, Local, Link, ContatoId)
+    VALUES (@Id, @Assunto, @DataOcorrencia, @HoraInicio, @HoraTermino, @TipoDeCompromisso, @Local, @Link, @ContatoId);
+""";
 
-    // Corrigido: Alterado para DataAcorrencia e HoraTermino
     private const string AtualizarSql = """
         UPDATE dbo.TBCompromissos
         SET
@@ -32,19 +30,17 @@ public class RepositorioCompromissoEmSql(ISqlConnectionFactory connectionFactory
         WHERE Id = @Id;
     """;
 
-    // Corrigido: Alterado para DataAcorrencia e HoraTermino
     private const string SelecionarPorIdSql = """
-        SELECT Id, Assunto, DataAcorrencia, HoraInicio, HoraTermino, TipoDeCompromisso, Local, ContatoId
+        SELECT Id, Assunto, DataOcorrencia, HoraInicio, HoraTermino, TipoDeCompromisso, Local, Link, ContatoId
         FROM dbo.TBCompromissos
         WHERE Id = @Id;
     """;
 
-    // Corrigido: Alterado para DataAcorrencia e HoraTermino
     private const string SelecionarTodosSql = """
-        SELECT Id, Assunto, DataAcorrencia, HoraInicio, HoraTermino, TipoDeCompromisso, Local, ContatoId
-        FROM dbo.TBCompromissos
-        ORDER BY Assunto;
-    """;
+    SELECT Id, Assunto, DataOcorrencia, HoraInicio, HoraTermino, TipoDeCompromisso, Local, Link, ContatoId
+    FROM dbo.TBCompromissos
+    ORDER BY Assunto;
+""";
 
     public void Cadastrar(Compromisso entidade)
     {
