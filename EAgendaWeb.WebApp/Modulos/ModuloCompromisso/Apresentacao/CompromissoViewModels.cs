@@ -11,3 +11,13 @@ public record ListarCompromissoViewModel(
     string? Link,
     string? Contato
 );
+public record CadastrarCompromissoViewModel(
+    string Assunto,
+    string DataOcorrencia,
+    string HoraInicio,
+    string HoraTermino,
+    string TipoDeCompromisso,
+    string? Local,
+    string? Link,
+    string? Contato
+);

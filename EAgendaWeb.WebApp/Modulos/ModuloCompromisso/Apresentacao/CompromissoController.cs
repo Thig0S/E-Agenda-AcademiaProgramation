@@ -15,4 +15,11 @@ public class CompromissoController : Controller
     {
         return View();
     }
+    [HttpPost]
+    public ActionResult Cadastrar(CadastrarCompromissoViewModel vm)
+    {
+        
+
+        return RedirectToAction(nameof(Listar));
+    }
 }
