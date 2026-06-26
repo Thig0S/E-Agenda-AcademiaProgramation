@@ -13,7 +13,7 @@ public class Compromisso : EntidadeBase<Compromisso>
     public string? Local { get; set; }
     public string? Link { get; set; }
     public Guid? ContatoId { get; set; }
-    public Contato? Contato {get; set;}
+    public Contato? Contato { get; set; }
     public Compromisso(
         string assunto, DateTime dataOcorrencia,
         TimeOnly horaInicio, TimeOnly horaTermino,
@@ -27,8 +27,8 @@ public class Compromisso : EntidadeBase<Compromisso>
         TipoDeCompromisso = tipoEvento;
         Local = local;
         Link = link;
-        ContatoId = contatoId;
         Contato = contato;
+        ContatoId = contato?.Id;
     }
 
     public override void Atualizar(Compromisso entidadeAtualizada)
