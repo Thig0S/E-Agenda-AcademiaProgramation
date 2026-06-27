@@ -7,3 +7,7 @@ public record ListarCategoriaViewModel(
 public record CadastrarCategoriaViewModel(
     string Titulo
 );
+public record ExcluirCategoriaViewModel(
+    string Id,
+    string Titulo
+);

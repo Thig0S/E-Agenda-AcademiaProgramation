@@ -38,4 +38,11 @@ public class CategoriaController : Controller
         repositorioCategoria.Cadastrar(novaCategoria);
         return RedirectToAction(nameof(Listar));
     }
+
+    public ActionResult Excluir(string Id)
+    {
+        Categoria? categoria = repositorioCategoria.SelecionarPorId(new Guid(Id));
+        repositorioCategoria.Excluir(new Guid(Id));
+        return RedirectToAction(nameof(Listar));
+    }
 }
