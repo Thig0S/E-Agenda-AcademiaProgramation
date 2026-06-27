@@ -1,6 +1,8 @@
 @{
     Layout = "_Layout";
     ViewBag.Titulo = "Cadastro de Compromisso";
+
+    List<SelectListItem> Contatos = ViewBag.Contatos;
 }
 
 @model CadastrarCompromissoViewModel;
@@ -63,7 +65,9 @@
                     <label asp-for="Contato" class="form-label fw-semibold text-primary text-uppercase small">Contato</label>
                     <span class="text-secondary"> *Opcional*</span>
 
-                    <input asp-for="Contato" type="text" class="form-control" placeholder="Nome do Contato">
+                    <select asp-for="Contato" asp-items="ViewBag.Contatos" class="form-select">
+                        <option value="">Selecione um contato...</option>
+                    </select>
                     <span asp-validation-for="Contato" class="text-danger small fw-semibold"></span>
                 </div>
 

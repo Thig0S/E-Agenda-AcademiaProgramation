@@ -9,7 +9,7 @@ public class Compromisso : EntidadeBase<Compromisso>
     public DateTime DataOcorrencia { get; set; }
     public TimeOnly HoraInicio { get; set; }
     public TimeOnly HoraTermino { get; set; }
-    public TipoDeCompromisso TipoDeCompromisso { get; set; }
+    public string TipoDeCompromisso { get; set; }
     public string? Local { get; set; }
     public string? Link { get; set; }
     public Guid? ContatoId { get; set; }
@@ -17,8 +17,8 @@ public class Compromisso : EntidadeBase<Compromisso>
     public Compromisso(
         string assunto, DateTime dataOcorrencia,
         TimeOnly horaInicio, TimeOnly horaTermino,
-        TipoDeCompromisso tipoEvento, string? local = null,
-        string? link = null, Guid? contatoId = null, Contato? contato = null)
+        string tipoEvento, string? local = null,
+        string? link = null, Contato? contato = null)
     {
         Assunto = assunto;
         DataOcorrencia = dataOcorrencia;
