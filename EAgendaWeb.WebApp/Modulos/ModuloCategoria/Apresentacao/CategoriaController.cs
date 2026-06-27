@@ -29,4 +29,13 @@ public class CategoriaController : Controller
     {
         return View();
     }
+
+    [HttpPost]
+
+    public ActionResult Cadastrar(CadastrarCategoriaViewModel vm)
+    {
+        Categoria novaCategoria = new(vm.Titulo);
+        repositorioCategoria.Cadastrar(novaCategoria);
+        return RedirectToAction(nameof(Listar));
+    }
 }
