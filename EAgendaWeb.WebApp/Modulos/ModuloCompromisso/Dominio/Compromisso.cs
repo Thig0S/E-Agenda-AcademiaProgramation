@@ -14,6 +14,10 @@ public class Compromisso : EntidadeBase<Compromisso>
     public string? Link { get; set; }
     public Guid? ContatoId { get; set; }
     public Contato? Contato { get; set; }
+    public Compromisso()
+    {
+
+    }
     public Compromisso(
         string assunto, DateTime dataOcorrencia,
         TimeOnly horaInicio, TimeOnly horaTermino,

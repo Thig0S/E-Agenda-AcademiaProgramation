@@ -21,3 +21,14 @@ public record CadastrarCompromissoDto(
     string? Link,
     string? Contato
 );
+public record DetalhesCompromissoDto(
+    string Id,
+    string Assunto,
+    string DataOcorrencia,
+    string HoraInicio,
+    string HoraTermino,
+    string TipoDeCompromisso,
+    string? Local,
+    string? Link,
+    string? Contato
+);

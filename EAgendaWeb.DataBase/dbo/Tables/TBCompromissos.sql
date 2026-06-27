@@ -7,7 +7,7 @@ CREATE TABLE [dbo].[TBCompromissos]
     [HoraTermino] TIME (0) NOT NULL,
     [TipoDeCompromisso] NVARCHAR (50) NOT NULL,
     [Local] NVARCHAR (50),
-    [Link] NVARCHAR (50) ,
+    [Link] NVARCHAR (200) ,
     [ContatoId] UNIQUEIDENTIFIER
 );
 GO

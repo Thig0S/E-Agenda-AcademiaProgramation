@@ -8,8 +8,10 @@ namespace EAgendaWeb.WebApp.Modulos.ModuloCompromisso.Infra;
 public class RepositorioCompromissoEmSql(ISqlConnectionFactory connectionFactory) : IRepositorioCompromisso
 {
     private const string InserirSql = """
-    INSERT INTO dbo.TBCompromissos (Id, Assunto, DataOcorrencia, HoraInicio, HoraTermino, TipoDeCompromisso, Local, Link, ContatoId)
-    VALUES (@Id, @Assunto, @DataOcorrencia, @HoraInicio, @HoraTermino, @TipoDeCompromisso, @Local, @Link, @ContatoId);
+    INSERT INTO dbo.TBCompromissos 
+    (Id, Assunto, DataOcorrencia, HoraInicio, HoraTermino, TipoDeCompromisso, Local, Link, ContatoId)
+    VALUES 
+    (@Id, @Assunto, @DataOcorrencia, @HoraInicio, @HoraTermino, @TipoDeCompromisso, @Local, @Link, @ContatoId);
 """;
 
     private const string AtualizarSql = """
@@ -37,9 +39,20 @@ public class RepositorioCompromissoEmSql(ISqlConnectionFactory connectionFactory
     """;
 
     private const string SelecionarTodosSql = """
-    SELECT Id, Assunto, DataOcorrencia, HoraInicio, HoraTermino, TipoDeCompromisso, Local, Link, ContatoId
-    FROM dbo.TBCompromissos
-    ORDER BY Assunto;
+    SELECT 
+        c.Id, 
+        c.Assunto, 
+        c.DataOcorrencia, 
+        c.HoraInicio, 
+        c.HoraTermino, 
+        c.TipoDeCompromisso, 
+        c.Local, 
+        c.Link, 
+        c.ContatoId,
+        ct.Nome AS NomeContato
+    FROM dbo.TBCompromissos c
+    LEFT JOIN dbo.TBContatos ct ON c.ContatoId = ct.Id
+    ORDER BY c.Assunto;
 """;
 
     public void Cadastrar(Compromisso entidade)

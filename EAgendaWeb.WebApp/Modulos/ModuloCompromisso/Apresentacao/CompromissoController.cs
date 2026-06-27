@@ -1,4 +1,5 @@
 using AutoMapper;
+using EAgendaWeb.WebApp.Compartilhado.Apresentacao.Extensions;
 using EAgendaWeb.WebApp.Modulos.ModuloCompromisso.Aplicacao;
 using EAgendaWeb.WebApp.Modulos.ModuloContato.Aplicacao;
 using EAgendaWeb.WebApp.Modulos.ModuloContato.Apresentacao;
@@ -27,7 +28,9 @@ public class CompromissoController : Controller
 
     public ActionResult Listar()
     {
-        List<ListarCompromissoViewModel> vms = [];
+        List<DetalhesCompromissoDto> dtos = servicoCompromisso.SelecionarTodos();
+
+        List<ListarCompromissoViewModel> vms = mapper.Map<List<ListarCompromissoViewModel>>(dtos);
 
         return View(vms);
     }
@@ -53,6 +56,13 @@ public class CompromissoController : Controller
         CadastrarCompromissoDto dto = mapper.Map<CadastrarCompromissoDto>(vm);
 
         Result resultado = servicoCompromisso.Cadastrar(dto);
+
+        if (resultado.IsFailed)
+        {
+            ModelState.AddModelError(resultado);
+
+            return View(vm);
+        }
 
         return RedirectToAction(nameof(Listar));
     }
