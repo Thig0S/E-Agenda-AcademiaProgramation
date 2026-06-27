@@ -14,8 +14,7 @@ public class RepositorioCategoriaEmSql(ISqlConnectionFactory connectionFactory) 
 
     private const string AtualizarSql = """
         UPDATE dbo.TBCategoria
-        SET
-            Titulo = @Titulo,
+        SET Titulo = @Titulo
         WHERE Id = @Id;
     """;
 

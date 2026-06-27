@@ -11,3 +11,7 @@ public record ExcluirCategoriaViewModel(
     string Id,
     string Titulo
 );
+public record EditarCategoriaViewModel(
+    string Id,
+    string Titulo
+);

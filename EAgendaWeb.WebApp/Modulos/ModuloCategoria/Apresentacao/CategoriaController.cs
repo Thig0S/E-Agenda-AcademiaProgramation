@@ -45,4 +45,21 @@ public class CategoriaController : Controller
         repositorioCategoria.Excluir(new Guid(Id));
         return RedirectToAction(nameof(Listar));
     }
+
+    public ActionResult Editar(string Id)
+    {
+        Categoria? categoria = repositorioCategoria.SelecionarPorId(new Guid(Id));
+        EditarCategoriaViewModel vm = new(Id, categoria.Titulo);
+        return View(vm);
+    }
+
+    [HttpPost]
+
+    public ActionResult Editar(EditarCategoriaViewModel vm)
+    {
+        Categoria categoria = new(vm.Titulo);
+        repositorioCategoria.Editar(new Guid(vm.Id), categoria);
+        return RedirectToAction(nameof(Listar));
+    }
+
 }
