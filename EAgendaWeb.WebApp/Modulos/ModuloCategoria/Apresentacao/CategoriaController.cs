@@ -24,4 +24,9 @@ public class CategoriaController : Controller
         }
         return View(listarVms);
     }
+
+    public ActionResult Cadastrar()
+    {
+        return View();
+    }
 }

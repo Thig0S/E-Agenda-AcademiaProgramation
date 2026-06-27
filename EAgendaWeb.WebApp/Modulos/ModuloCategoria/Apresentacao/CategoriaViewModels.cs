@@ -4,4 +4,6 @@ public record ListarCategoriaViewModel(
     string Id,
     string Titulo
 );
-
+public record CadastrarCategoriaViewModel(
+    string Titulo
+);
