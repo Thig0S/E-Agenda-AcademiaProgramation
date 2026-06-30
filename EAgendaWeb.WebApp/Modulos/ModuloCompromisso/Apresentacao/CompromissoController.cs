@@ -101,6 +101,14 @@ public class CompromissoController : Controller
         if (dto.IsFailed)
             return RedirectToAction(nameof(Listar));
 
+        List<DetalhesContatoDto> dtosContato = servicoContato.SelecionarTodos();
+
+        ViewBag.Contatos = dtosContato.Select(c => new SelectListItem
+        {
+            Value = c.Id.ToString(),
+            Text = c.Nome
+        }).ToList();
+
         EditarCompromissoViewModel vm = mapper.Map<EditarCompromissoViewModel>(dto.Value);
 
         return View(vm);
