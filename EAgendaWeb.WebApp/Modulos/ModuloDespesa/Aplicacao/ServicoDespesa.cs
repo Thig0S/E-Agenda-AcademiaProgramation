@@ -1,7 +1,9 @@
 using AutoMapper;
+using AutoMapper.Internal.Mappers;
 using EAgendaWeb.WebApp.Modulos.ModuloCategoria.Dominio;
 using EAgendaWeb.WebApp.Modulos.ModuloContato.Apresentacao;
 using EAgendaWeb.WebApp.Modulos.ModuloDespesa.Dominio;
+using FluentResults;
 
 namespace EAgendaWeb.WebApp.Modulos.ModuloDespesa.Aplicacao;
 
@@ -27,5 +29,35 @@ public class ServicoDespesa
             e.Valor,
             e.FormaPagamento,
             e.Categoria?.ToString() ?? "Sem Categoria")).ToList();
+    }
+
+    internal Result Cadastrar(CadastrarDespesaDto dto)
+    {
+        Categoria? categoria = null;
+
+        if (dto.Categoria != null)
+            categoria = repositorioCategoria.SelecionarPorId(new Guid(dto.Categoria));
+
+        Despesa novaDespesa = new(dto.Descricao, dto.Valor, dto.FormaPagamento, categoria,
+        (dto.DataOcorrencia == null) ? null : DateTime.Parse(dto.DataOcorrencia));
+
+        Result errosValidacao = ValidarEntidade(novaDespesa);
+
+        if (errosValidacao.IsFailed)
+            return errosValidacao;
+
+        repositorioDespesa.Cadastrar(novaDespesa);
+
+        return Result.Ok();
+
+    }
+    private Result ValidarEntidade(Despesa entidade)
+    {
+        List<string> erros = entidade.Validar();
+
+        if (erros.Count == 0)
+            return Result.Ok();
+
+        return Result.Fail(new FluentResults.Error(erros.First()).WithMetadata("Campo", string.Empty));
     }
 }

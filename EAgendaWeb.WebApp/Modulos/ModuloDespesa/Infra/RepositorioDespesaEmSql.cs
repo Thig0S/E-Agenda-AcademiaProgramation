@@ -10,8 +10,8 @@ namespace EAgendaWeb.WebApp.Modulos.ModuloContato.Infra
     public sealed class RepositorioDespesaEmSql(ISqlConnectionFactory connectionFactory) : IRepositorioDespesa
     {
         private const string InserirSql = """
-        INSERT INTO dbo.TBDespesa (Id, Descricao, Valor, FormaPagamento)
-        VALUES (@Id, @Descricao, @Valor, @FormaPagamento);
+        INSERT INTO dbo.TBDespesa (Id, Descricao, Valor, FormaPagamento, DataOcorrencia)
+        VALUES (@Id, @Descricao, @Valor, @FormaPagamento, @DataOcorrencia);
     """;
 
         private const string AtualizarSql = """
@@ -19,7 +19,8 @@ namespace EAgendaWeb.WebApp.Modulos.ModuloContato.Infra
         SET
             Descricao = @Descricao,
             Valor = @Valor,
-            FormaPagamento = @FormaPagamento
+            FormaPagamento = @FormaPagamento,
+            DataOcorrencia = @DataOcorrencia
         WHERE Id = @Id;
     """;
 
@@ -38,6 +39,7 @@ namespace EAgendaWeb.WebApp.Modulos.ModuloContato.Infra
             d.Descricao, 
             d.Valor, 
             d.FormaPagamento,
+            d.DataOcorrencia = @DataOcorrencia,
             c.Id AS CategoriaId,
             c.Titulo AS CategoriaTitulo
         FROM dbo.TBDespesa d
@@ -52,6 +54,7 @@ namespace EAgendaWeb.WebApp.Modulos.ModuloContato.Infra
             d.Descricao, 
             d.Valor, 
             d.FormaPagamento,
+            d.DataOcorrencia,
             c.Id AS CategoriaId,
             c.Titulo AS CategoriaTitulo
         FROM dbo.TBDespesa d

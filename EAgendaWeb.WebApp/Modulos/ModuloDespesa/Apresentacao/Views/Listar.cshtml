@@ -34,11 +34,11 @@ else
                         </div>
 
                         <dl class="row g-2 mb-4">
-                            <dt class="col-5 text-secondary fw-semibold">DataOcorrencia</dt>
-                            <dd class="col-7 mb-0 text-break">@f.DataOcorrencia</dd>
+                            <dt class="col-5 text-secondary fw-semibold">Data de Ocorrencia</dt>
+                            <dd class="col-7 mb-0 text-break">@(f.DataOcorrencia.Split(" ")[0])</dd>
 
                             <dt class="col-5 text-secondary fw-semibold">Valor</dt>
-                            <dd class="col-7 mb-0 text-break">@f.Valor</dd>
+                            <dd class="col-7 mb-0 text-break">R$@f.Valor.ToString("F2")</dd>
 
                         </dl>
 

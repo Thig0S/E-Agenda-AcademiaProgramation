@@ -8,3 +8,10 @@ public record DetalheDespesaDto(
     string FormaPagamento,
     string Categoria
 );
+public record CadastrarDespesaDto(
+    string Descricao,
+    string DataOcorrencia,
+    decimal Valor,
+    string FormaPagamento,
+    string Categoria
+);
