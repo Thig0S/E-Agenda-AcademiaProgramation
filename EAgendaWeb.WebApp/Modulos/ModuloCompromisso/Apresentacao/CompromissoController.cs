@@ -2,7 +2,6 @@ using AutoMapper;
 using EAgendaWeb.WebApp.Compartilhado.Apresentacao.Extensions;
 using EAgendaWeb.WebApp.Modulos.ModuloCompromisso.Aplicacao;
 using EAgendaWeb.WebApp.Modulos.ModuloContato.Aplicacao;
-using EAgendaWeb.WebApp.Modulos.ModuloContato.Apresentacao;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -65,6 +64,19 @@ public class CompromissoController : Controller
         }
 
         return RedirectToAction(nameof(Listar));
+    }
+    [HttpGet]
+    public ActionResult Excluir(string id)
+    {
+        Result<DetalhesCompromissoDto> dto = servicoCompromisso.SelecionarPorId(new Guid(id));
+
+        if (dto.IsFailed)
+            return RedirectToAction(nameof(Listar));
+
+        ExcluirCompromissoViewModel vm = mapper.Map<ExcluirCompromissoViewModel>(dto.Value);
+
+        return View(vm);
+
     }
 }
 

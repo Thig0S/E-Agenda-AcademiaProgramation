@@ -66,7 +66,7 @@ public class ServicoCompromisso
         Compromisso? compromisso = repositorioCompromisso.SelecionarPorId(id);
 
         if (compromisso == null)
-            return Result.Fail("Fornecedor não encontrado!");
+            return Result.Fail("Contato não encontrado!");
 
         return Result.Ok(
             new DetalhesCompromissoDto(
@@ -77,7 +77,7 @@ public class ServicoCompromisso
             compromisso.HoraTermino.ToShortTimeString(),
             compromisso.TipoDeCompromisso,
             compromisso.Local, compromisso.Link,
-            compromisso.Contato.Nome)
+            compromisso.Contato?.Nome ?? "Não informado")
             );
     }
 }

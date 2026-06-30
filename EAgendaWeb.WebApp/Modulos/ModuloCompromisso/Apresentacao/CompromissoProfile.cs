@@ -10,5 +10,6 @@ public class CompromissoProfile : Profile
         CreateMap<ListarCompromissoViewModel, ListarCompromissoDto>();
         CreateMap<CadastrarCompromissoViewModel, CadastrarCompromissoDto>();
         CreateMap<DetalhesCompromissoDto, ListarCompromissoViewModel>();
+        CreateMap<DetalhesCompromissoDto, ExcluirCompromissoViewModel>();
     }
 }

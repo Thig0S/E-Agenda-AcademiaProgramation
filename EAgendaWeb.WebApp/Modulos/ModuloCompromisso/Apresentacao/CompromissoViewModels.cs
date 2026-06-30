@@ -28,3 +28,14 @@ public record CadastrarCompromissoViewModel(
     string? Link,
     string? Contato
 );
+public record ExcluirCompromissoViewModel(
+    string Id,
+    string Assunto,
+    string DataOcorrencia,
+    string HoraInicio,
+    string HoraTermino,
+    string TipoDeCompromisso,
+    string? Local,
+    string? Link,
+    string? Contato
+);
