@@ -94,6 +94,17 @@ public class CompromissoController : Controller
 
         return RedirectToAction(nameof(Listar));
     }
+    public ActionResult Editar(string id)
+    {
+        Result<DetalhesCompromissoDto> dto = servicoCompromisso.SelecionarPorId(new Guid(id));
+
+        if (dto.IsFailed)
+            return RedirectToAction(nameof(Listar));
+
+        EditarCompromissoViewModel vm = mapper.Map<EditarCompromissoViewModel>(dto.Value);
+
+        return View(vm);
+    }
 }
 
 
