@@ -4,6 +4,7 @@ using EAgendaWeb.WebApp.Modulos.ModuloCategoria.Dominio;
 using EAgendaWeb.WebApp.Modulos.ModuloContato.Apresentacao;
 using EAgendaWeb.WebApp.Modulos.ModuloDespesa.Dominio;
 using FluentResults;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EAgendaWeb.WebApp.Modulos.ModuloDespesa.Aplicacao;
 
@@ -20,16 +21,7 @@ public class ServicoDespesa
         this.mapper = mapper;
     }
 
-    public List<DetalheDespesaDto> SelecionarTodos()
-    {
-        return repositorioDespesa.SelecionarTodos().Select(e => new DetalheDespesaDto(
-            e.Id.ToString(),
-            e.Descricao,
-            e.DataOcorrencia.ToString(),
-            e.Valor,
-            e.FormaPagamento,
-            e.Categoria?.ToString() ?? "Sem Categoria")).ToList();
-    }
+
 
     internal Result Cadastrar(CadastrarDespesaDto dto)
     {
@@ -59,5 +51,28 @@ public class ServicoDespesa
             return Result.Ok();
 
         return Result.Fail(new FluentResults.Error(erros.First()).WithMetadata("Campo", string.Empty));
+    }
+
+    public List<DetalheDespesaDto> SelecionarTodos()
+    {
+        return repositorioDespesa.SelecionarTodos().Select(e => new DetalheDespesaDto(
+            e.Id.ToString(),
+            e.Descricao,
+            e.DataOcorrencia.ToString(),
+            e.Valor,
+            e.FormaPagamento,
+            e.Categoria?.ToString() ?? "Sem Categoria")).ToList();
+    }
+    public DetalheDespesaDto SelecionarPorId(string id)
+    {
+        Despesa? despesa = repositorioDespesa.SelecionarPorId(new Guid(id));
+
+        if (despesa == null)
+            throw new Exception("Despesa não encontrada!");
+
+        return new DetalheDespesaDto(despesa.Id.ToString(),
+         despesa.Descricao, despesa.DataOcorrencia.ToString(),
+          despesa.Valor, despesa.FormaPagamento,
+           despesa.Categoria?.Id.ToString() ?? "Sem Categoria");
     }
 }

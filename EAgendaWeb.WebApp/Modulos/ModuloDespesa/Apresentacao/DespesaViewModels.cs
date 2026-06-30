@@ -20,3 +20,11 @@ public record CadastrarDespesaViewModel(
     string FormaPagamento,
     string? Categoria
 );
+public record ExcluirDespesaViewModel(
+    string Id,
+    string Descricao,
+    string DataOcorrencia,
+    decimal Valor,
+    string FormaPagamento,
+    string? Categoria
+);

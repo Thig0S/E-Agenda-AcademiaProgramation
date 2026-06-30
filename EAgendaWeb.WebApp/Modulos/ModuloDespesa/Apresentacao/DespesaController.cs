@@ -55,4 +55,12 @@ public class DespesaController : Controller
 
         return RedirectToAction(nameof(Listar));
     }
+    public ActionResult Excluir(string id)
+    {
+        DetalheDespesaDto dto = servicoDespesa.SelecionarPorId(id);
+
+        ExcluirDespesaViewModel vm = mapper.Map<ExcluirDespesaViewModel>(dto);
+
+        return View(vm);
+    }
 }

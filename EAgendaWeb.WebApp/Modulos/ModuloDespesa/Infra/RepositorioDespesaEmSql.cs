@@ -39,7 +39,7 @@ namespace EAgendaWeb.WebApp.Modulos.ModuloContato.Infra
             d.Descricao, 
             d.Valor, 
             d.FormaPagamento,
-            d.DataOcorrencia = @DataOcorrencia,
+            d.DataOcorrencia,
             c.Id AS CategoriaId,
             c.Titulo AS CategoriaTitulo
         FROM dbo.TBDespesa d
