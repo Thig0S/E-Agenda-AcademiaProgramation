@@ -15,3 +15,6 @@ public record CadastrarDespesaDto(
     string FormaPagamento,
     string Categoria
 );
+public record ExcluirDespesaDto(
+    string Id
+);

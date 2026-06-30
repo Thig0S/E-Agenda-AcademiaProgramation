@@ -75,4 +75,16 @@ public class ServicoDespesa
           despesa.Valor, despesa.FormaPagamento,
            despesa.Categoria?.Id.ToString() ?? "Sem Categoria");
     }
+
+    internal Result Excluir(ExcluirDespesaDto dto)
+    {
+        Despesa? despesa = repositorioDespesa.SelecionarPorId(new Guid(dto.Id));
+
+        if (despesa == null)
+            throw new Exception("Despesa não encontrada!");
+
+        repositorioDespesa.Excluir(new Guid(dto.Id));
+
+        return Result.Ok();
+    }
 }

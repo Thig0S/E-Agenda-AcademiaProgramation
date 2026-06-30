@@ -1,6 +1,7 @@
 using AutoMapper;
 using EAgendaWeb.WebApp.Modulos.ModuloCategoria.Aplicacao;
 using EAgendaWeb.WebApp.Modulos.ModuloCategoria.Dominio;
+using EAgendaWeb.WebApp.Modulos.ModuloCompromisso.Apresentacao;
 using EAgendaWeb.WebApp.Modulos.ModuloDespesa.Aplicacao;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
@@ -62,5 +63,14 @@ public class DespesaController : Controller
         ExcluirDespesaViewModel vm = mapper.Map<ExcluirDespesaViewModel>(dto);
 
         return View(vm);
+    }
+    [HttpPost]
+    public ActionResult Excluir(ExcluirCompromissoViewModel vm)
+    {
+        ExcluirDespesaDto dto = new(vm.Id);
+
+        Result resultado = servicoDespesa.Excluir(dto);
+
+        return RedirectToAction(nameof(Listar));
     }
 }
