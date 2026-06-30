@@ -28,3 +28,11 @@ public record ExcluirDespesaViewModel(
     string FormaPagamento,
     string? Categoria
 );
+public record EditarDespesaViewModel(
+    string Id,
+    string Descricao,
+    string DataOcorrencia,
+    decimal Valor,
+    string FormaPagamento,
+    string? Categoria
+);

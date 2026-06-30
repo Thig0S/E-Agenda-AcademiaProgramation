@@ -87,4 +87,24 @@ public class ServicoDespesa
 
         return Result.Ok();
     }
+
+    internal Result Editar(EditarDespesaDto dto)
+    {
+        Categoria? categoria = null;
+
+        if (dto.Categoria != null)
+            categoria = repositorioCategoria.SelecionarPorId(new Guid(dto.Categoria));
+
+        Despesa novaDespesa = new(dto.Descricao, dto.Valor, dto.FormaPagamento, categoria,
+        (dto.DataOcorrencia == null) ? null : DateTime.Parse(dto.DataOcorrencia));
+
+        Result errosValidacao = ValidarEntidade(novaDespesa);
+
+        if (errosValidacao.IsFailed)
+            return errosValidacao;
+
+        repositorioDespesa.Editar(new Guid(dto.Id), novaDespesa);
+
+        return Result.Ok();
+    }
 }

@@ -1,4 +1,5 @@
 using AutoMapper;
+using EAgendaWeb.WebApp.Compartilhado.Apresentacao.Extensions;
 using EAgendaWeb.WebApp.Modulos.ModuloCategoria.Aplicacao;
 using EAgendaWeb.WebApp.Modulos.ModuloCategoria.Dominio;
 using EAgendaWeb.WebApp.Modulos.ModuloCompromisso.Apresentacao;
@@ -54,6 +55,13 @@ public class DespesaController : Controller
 
         Result resultado = servicoDespesa.Cadastrar(dto);
 
+        if (resultado.IsFailed)
+        {
+            ModelState.AddModelError(resultado);
+
+            return View(vm);
+        }
+
         return RedirectToAction(nameof(Listar));
     }
     public ActionResult Excluir(string id)
@@ -70,6 +78,45 @@ public class DespesaController : Controller
         ExcluirDespesaDto dto = new(vm.Id);
 
         Result resultado = servicoDespesa.Excluir(dto);
+
+        if (resultado.IsFailed)
+        {
+            ModelState.AddModelError(resultado);
+
+            return View(vm);
+        }
+
+        return RedirectToAction(nameof(Listar));
+    }
+    public ActionResult Editar(string id)
+    {
+        List<Categoria> categoria = servicoCategoria.SelecionarTodos();
+
+        ViewBag.Categorias = categoria.Select(e => new SelectListItem
+        {
+            Value = e.Id.ToString(),
+            Text = e.Titulo
+        });
+
+        DetalheDespesaDto dto = servicoDespesa.SelecionarPorId(id);
+
+        EditarDespesaViewModel vm = mapper.Map<EditarDespesaViewModel>(dto);
+
+        return View(vm);
+    }
+    [HttpPost]
+    public ActionResult Editar(EditarDespesaViewModel vm)
+    {
+        EditarDespesaDto dto = mapper.Map<EditarDespesaDto>(vm);
+
+        Result resultado = servicoDespesa.Editar(dto);
+
+        if (resultado.IsFailed)
+        {
+            ModelState.AddModelError(resultado);
+
+            return View(vm);
+        }
 
         return RedirectToAction(nameof(Listar));
     }
