@@ -113,6 +113,18 @@ public class CompromissoController : Controller
 
         return View(vm);
     }
+    [HttpPost]
+    public ActionResult Editar(EditarCompromissoViewModel vm)
+    {
+        if (!ModelState.IsValid)
+            return View(vm);
+
+        EditarCompromissoDto dto = mapper.Map<EditarCompromissoDto>(vm);
+
+        Result resultado = servicoCompromisso.Editar(dto);
+
+        return RedirectToAction(nameof(Listar));
+    }
 }
 
 

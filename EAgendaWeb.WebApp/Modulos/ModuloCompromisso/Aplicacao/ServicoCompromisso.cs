@@ -92,4 +92,25 @@ public class ServicoCompromisso
 
         return Result.Ok();
     }
+
+    internal Result Editar(EditarCompromissoDto dto)
+    {
+        Contato? contato = null;
+
+        if (!string.IsNullOrWhiteSpace(dto.Contato))
+            contato = repositorioContato.SelecionarPorId(new Guid(dto.Contato!));
+
+        Compromisso CompromissoEditado = new(dto.Assunto, DateTime.Parse(dto.DataOcorrencia),
+            TimeOnly.Parse(dto.HoraInicio), TimeOnly.Parse(dto.HoraTermino),
+            dto.TipoDeCompromisso, dto.Local, dto.Link, contato
+            );
+
+        Result resultadoValidacao = ValidarEntidade(CompromissoEditado);
+
+        if (resultadoValidacao.IsFailed)
+            return resultadoValidacao;
+
+        repositorioCompromisso.Editar(new Guid(dto.Id), CompromissoEditado);
+        return Result.Ok();
+    }
 }

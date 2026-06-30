@@ -49,6 +49,18 @@
                     <span asp-validation-for="TipoDeCompromisso" class="text-danger small fw-semibold"></span>
                 </div>
 
+                <div class="mb-3" id="divLocal" style="display: none;">
+                    <label asp-for="Local" class="form-label fw-semibold text-primary text-uppercase small">Local</label>
+                    <input asp-for="Local" type="text" class="form-control" placeholder="Ex: Sala de Reuniões 1">
+                    <span asp-validation-for="Local" class="text-danger small fw-semibold"></span>
+                </div>
+
+                <div class="mb-3" id="divLink" style="display: none;">
+                    <label asp-for="Link" class="form-label fw-semibold text-primary text-uppercase small">Link da Chamada</label>
+                    <input asp-for="Link" type="url" class="form-control" placeholder="Ex: https://meet.google.com/...">
+                    <span asp-validation-for="Link" class="text-danger small fw-semibold"></span>
+                </div>
+
                 <div class="mb-3">
                     <label asp-for="Contato" class="form-label fw-semibold text-primary text-uppercase small">Contato</label>
                     <span class="text-secondary"> *Opcional*</span>
@@ -64,3 +76,39 @@
                     <button class="btn btn-primary rounded-pill px-4" type="submit">Confirmar</button>
                 </div>
             </form>
+            @section Scripts {
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        // Pega os elementos da tela
+                        const selectTipo = document.getElementById("tipoCompromisso");
+                        const divLocal = document.getElementById("divLocal");
+                        const divLink = document.getElementById("divLink");
+
+                        // Função que decide quem aparece e quem some
+                        function alternarCampos() {
+                            const valorSelecionado = selectTipo.value;
+
+                            if (valorSelecionado === "Presencial") {
+                                divLocal.style.display = "block"; // Mostra o Local
+                                divLink.style.display = "none";   // Esconde o Link
+                            }
+                            else if (valorSelecionado === "Remoto") {
+                                divLocal.style.display = "none";  // Esconde o Local
+                                divLink.style.display = "block";  // Mostra o Link
+                            }
+                            else {
+                                // Se estiver em "Selecione...", esconde os dois
+                                divLocal.style.display = "none";
+                                divLink.style.display = "none";
+                            }
+                        }
+
+                        // Executa a função uma vez quando a página carrega
+                        // (Isso é importante caso a tela recarregue por causa de algum erro de validação)
+                        alternarCampos();
+
+                        // Executa a função toda vez que o usuário trocar a opção no select
+                        selectTipo.addEventListener("change", alternarCampos);
+                    });
+                </script>
+            }

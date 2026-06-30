@@ -18,7 +18,7 @@ public class RepositorioCompromissoEmSql(ISqlConnectionFactory connectionFactory
         UPDATE dbo.TBCompromissos
         SET
             Assunto = @Assunto,
-            DataAcorrencia = @DataOcorrencia,
+            DataOcorrencia = @DataOcorrencia,
             HoraInicio = @HoraInicio,
             HoraTermino = @HoraTermino,
             TipoDeCompromisso = @TipoDeCompromisso,
