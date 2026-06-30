@@ -1,10 +1,7 @@
 using AutoMapper;
-using AutoMapper.Internal.Mappers;
 using EAgendaWeb.WebApp.Modulos.ModuloCategoria.Dominio;
-using EAgendaWeb.WebApp.Modulos.ModuloContato.Apresentacao;
 using EAgendaWeb.WebApp.Modulos.ModuloDespesa.Dominio;
 using FluentResults;
-using Microsoft.AspNetCore.Mvc;
 
 namespace EAgendaWeb.WebApp.Modulos.ModuloDespesa.Aplicacao;
 
