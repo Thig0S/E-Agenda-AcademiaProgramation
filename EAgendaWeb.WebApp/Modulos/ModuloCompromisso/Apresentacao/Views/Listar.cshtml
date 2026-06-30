@@ -60,9 +60,9 @@ else
                             else
                             {
                                 <dt class="col-5 text-secondary fw-semibold">Link</dt>
-                                <dd class="col-7 mb-0 text-break">@(f.Link ?? "Não Informado")</dd>
+                                <a class="col-7 mb-0 text-break" href="@f.Link" target="_blank">Link para a Reunião</a>
                             }
-                            <dt class="col-5 text-secondary fw-semibold">Cargo</dt>
+                            <dt class=" col-5 text-secondary fw-semibold">Contato</dt>
                             <dd class="col-7 mb-0 text-break">@(f.Contato ?? "Não Informado")</dd>
                         </dl>
 
