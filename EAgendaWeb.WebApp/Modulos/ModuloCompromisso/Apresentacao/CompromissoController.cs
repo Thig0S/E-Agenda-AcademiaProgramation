@@ -78,6 +78,22 @@ public class CompromissoController : Controller
         return View(vm);
 
     }
+    [HttpPost]
+    public ActionResult Excluir(ExcluirCompromissoViewModel vm)
+    {
+        ExcluirCompromissoDto dto = mapper.Map<ExcluirCompromissoDto>(vm);
+
+        Result resultado = servicoCompromisso.Excluir(dto);
+
+        if (resultado.IsFailed)
+        {
+            ModelState.AddModelError(resultado);
+
+            return View(vm);
+        }
+
+        return RedirectToAction(nameof(Listar));
+    }
 }
 
 

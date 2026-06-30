@@ -80,4 +80,16 @@ public class ServicoCompromisso
             compromisso.Contato?.Nome ?? "Não informado")
             );
     }
+
+    internal Result Excluir(ExcluirCompromissoDto dto)
+    {
+        Compromisso? compromissoSelecionado = repositorioCompromisso.SelecionarPorId(new Guid(dto.Id));
+
+        if (compromissoSelecionado == null)
+            return Result.Fail("Compromisso não encontrado");
+
+        repositorioCompromisso.Excluir(new Guid(dto.Id));
+
+        return Result.Ok();
+    }
 }
