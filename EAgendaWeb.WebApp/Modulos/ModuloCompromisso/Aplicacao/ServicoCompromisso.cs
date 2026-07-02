@@ -51,6 +51,7 @@ public class ServicoCompromisso
     }
     internal List<DetalhesCompromissoDto> SelecionarTodos()
     {
+
         return repositorioCompromisso.SelecionarTodos().Select(c => new DetalhesCompromissoDto(
             c.Id.ToString(),
             c.Assunto,
@@ -59,7 +60,7 @@ public class ServicoCompromisso
             c.HoraTermino.ToShortTimeString(),
             c.TipoDeCompromisso,
             c.Local, c.Link,
-            c.Contato?.Nome ?? "Sem Contato")).ToList();
+            c.Contato ?? "Sem Contato")).ToList();
     }
     internal Result<DetalhesCompromissoDto> SelecionarPorId(Guid id)
     {
@@ -77,7 +78,7 @@ public class ServicoCompromisso
             compromisso.HoraTermino.ToShortTimeString(),
             compromisso.TipoDeCompromisso,
             compromisso.Local, compromisso.Link,
-            compromisso.Contato?.Nome ?? "Não informado")
+            compromisso.Contato ?? "Não informado")
             );
     }
 

@@ -48,8 +48,7 @@ public class RepositorioCompromissoEmSql(ISqlConnectionFactory connectionFactory
         c.TipoDeCompromisso, 
         c.Local, 
         c.Link, 
-        c.ContatoId,
-        ct.Nome AS NomeContato
+        ct.Nome AS Contato
     FROM dbo.TBCompromissos c
     LEFT JOIN dbo.TBContatos ct ON c.ContatoId = ct.Id
     ORDER BY c.Assunto;

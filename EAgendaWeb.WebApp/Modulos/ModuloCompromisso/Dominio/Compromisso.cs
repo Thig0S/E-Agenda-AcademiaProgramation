@@ -13,7 +13,7 @@ public class Compromisso : EntidadeBase<Compromisso>
     public string? Local { get; set; }
     public string? Link { get; set; }
     public Guid? ContatoId { get; set; }
-    public Contato? Contato { get; set; }
+    public string? Contato { get; set; }
     public Compromisso()
     {
 
@@ -31,7 +31,7 @@ public class Compromisso : EntidadeBase<Compromisso>
         TipoDeCompromisso = tipoEvento;
         Local = local;
         Link = link;
-        Contato = contato;
+        Contato = contato?.Nome;
         ContatoId = contato?.Id;
     }
 
