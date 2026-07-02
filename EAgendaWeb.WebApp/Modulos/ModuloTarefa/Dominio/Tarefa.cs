@@ -9,6 +9,20 @@ public class Tarefa : EntidadeBase<Tarefa>
     public DateTime DataCricao { get; set; } = DateTime.Now;
     public DateTime DataConclusao { get; set; }
     public string StatusDeConclusao { get; set; }
+    public int PercentualConcluido
+    {
+        get
+        {
+            int quandidadeItens = Tarefas.Count;
+            int itensConcluidos = 0;
+            foreach (var item in Tarefas)
+            {
+                if (item.StatusConclusao == StatusConclusao.Concluido)
+                    itensConcluidos++;
+            }
+            return itensConcluidos / quandidadeItens;
+        }
+    }
     public List<ItensTarefa> Tarefas = [];
 
     public Tarefa(string titulo, string prioridade, DateTime dataConclusao, List<ItensTarefa> tarefas)
