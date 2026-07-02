@@ -33,9 +33,19 @@ public class RepositorioCompromissoEmSql(ISqlConnectionFactory connectionFactory
     """;
 
     private const string SelecionarPorIdSql = """
-        SELECT Id, Assunto, DataOcorrencia, HoraInicio, HoraTermino, TipoDeCompromisso, Local, Link, ContatoId
-        FROM dbo.TBCompromissos
-        WHERE Id = @Id;
+        SELECT 
+            c.Id, 
+            c.Assunto, 
+            c.DataOcorrencia, 
+            c.HoraInicio, 
+            c.HoraTermino, 
+            c.TipoDeCompromisso, 
+            c.Local, 
+            c.Link, 
+            ct.Nome AS Contato
+        FROM dbo.TBCompromissos c
+        LEFT JOIN dbo.TBContatos ct ON c.ContatoId = ct.Id
+        WHERE c.Id = @Id;
     """;
 
     private const string SelecionarTodosSql = """
