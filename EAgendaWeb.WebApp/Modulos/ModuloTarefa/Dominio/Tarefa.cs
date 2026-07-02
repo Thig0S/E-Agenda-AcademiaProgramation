@@ -8,23 +8,26 @@ public class Tarefa : EntidadeBase<Tarefa>
     public string Prioridade { get; set; }
     public DateTime DataCricao { get; set; } = DateTime.Now;
     public DateTime DataConclusao { get; set; }
-    public string StatusDeConclusao { get; set; }
+    public string? StatusDeConclusao { get; set; }
     public int PercentualConcluido
     {
         get
         {
-            int quandidadeItens = Tarefas.Count;
-            int itensConcluidos = 0;
-            foreach (var item in Tarefas)
-            {
-                if (item.StatusConclusao == StatusConclusao.Concluido)
-                    itensConcluidos++;
-            }
-            return itensConcluidos / quandidadeItens;
+            int quantidadeItens = Tarefas.Count;
+            if (quantidadeItens == 0)
+                return 0;
+
+            int itensConcluidos = Tarefas.Count(i => i.StatusConclusao == StatusConclusao.Concluido);
+
+            return (itensConcluidos * 100) / quantidadeItens;
         }
     }
     public List<ItensTarefa> Tarefas = [];
 
+    public Tarefa()
+    {
+
+    }
     public Tarefa(string titulo, string prioridade, DateTime dataConclusao, List<ItensTarefa> tarefas)
     {
         Titulo = titulo;

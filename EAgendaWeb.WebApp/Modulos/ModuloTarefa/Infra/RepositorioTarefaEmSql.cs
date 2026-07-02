@@ -1,0 +1,93 @@
+using Dapper;
+using EAgendaWeb.WebApp.Compartilhado.Infra.Sql;
+using EAgendaWeb.WebApp.Modulos.ModuloTarefa.Dominio;
+using Microsoft.Data.SqlClient;
+
+namespace EAgendaWeb.WebApp.Modulos.ModuloTarefa.Infra;
+
+public class RepositorioTarefaEmSql(ISqlConnectionFactory connectionFactory) : IRepositorioTarefa
+{
+    private const string InserirSql = """
+        INSERT INTO dbo.TBTarefa (Id, Titulo, Prioridade, DataCriacao, DataConclusao, StatusConclusao)
+        VALUES (@Id, @Titulo, @Prioridade, @DataCriacao, @DataConclusao, @StatusConclusao);
+    """;
+
+    private const string AtualizarSql = """
+        UPDATE dbo.TBTarefa
+        SET Titulo = @Titulo,
+        Prioridade = @Prioridade,
+        DataCriacao = @DataCriacao,
+        DataConclusao = @DataConclusao,
+        StatusConclusao = @StatusConclusao
+        WHERE Id = @Id;
+    """;
+
+    private const string ExcluirSql = """
+        DELETE FROM dbo.TBTarefa
+        WHERE Id = @Id;
+    """;
+
+    private const string SelecionarPorIdSql = """
+        SELECT Id, Titulo, Prioridade, DataCriacao, DataConclusao, StatusConclusao
+        FROM dbo.TBTarefa
+        WHERE Id = @Id;
+    """;
+
+    private const string SelecionarTodosSql = """
+        SELECT Id, Titulo, Prioridade, DataCriacao, DataConclusao, StatusConclusao
+        FROM dbo.TBTarefa
+        ORDER BY Titulo;
+    """;
+
+    public void Cadastrar(Tarefa entidade)
+    {
+        using SqlConnection conexao = connectionFactory.CreateConnection();
+
+        conexao.Open();
+
+        conexao.Execute(InserirSql, entidade);
+    }
+
+    public bool Editar(Guid idSelecionado, Tarefa entidadeAtualizada)
+    {
+        entidadeAtualizada.Id = idSelecionado;
+
+        using SqlConnection conexao = connectionFactory.CreateConnection();
+
+        conexao.Open();
+
+        return conexao.Execute(AtualizarSql, entidadeAtualizada) == 1;
+    }
+
+    public bool Excluir(Guid idSelecionado)
+    {
+        using SqlConnection conexao = connectionFactory.CreateConnection();
+
+        conexao.Open();
+
+        return conexao.Execute(ExcluirSql, new { Id = idSelecionado }) == 1;
+    }
+
+    public Tarefa? SelecionarPorId(Guid idSelecionado)
+    {
+        using SqlConnection conexao = connectionFactory.CreateConnection();
+
+        conexao.Open();
+
+        return conexao.QuerySingleOrDefault<Tarefa>(SelecionarPorIdSql, new { Id = idSelecionado });
+    }
+
+    public List<Tarefa> SelecionarTodos()
+    {
+        using SqlConnection conexao = connectionFactory.CreateConnection();
+
+        conexao.Open();
+
+        return conexao.Query<Tarefa>(SelecionarTodosSql).ToList();
+    }
+
+    public List<Tarefa> Filtrar(Predicate<Tarefa> filtro)
+    {
+        return SelecionarTodos().FindAll(filtro);
+    }
+}
