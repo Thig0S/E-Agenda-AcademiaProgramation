@@ -6,7 +6,7 @@ public record ListarTarefaViewModel(
     string Id,
     string Titulo,
     string Prioridade,
-    string DataCricao,
+    string DataCriacao,
     string DataConclusao,
     string StatusDeConclusao,
     int PercentualConcluido
@@ -23,7 +23,7 @@ public record ExcluirTarefaViewModel(
     string Id,
     string Titulo,
     string Prioridade,
-    string DataCricao,
+    string DataCriacao,
     string DataConclusao,
     string StatusDeConclusao,
     int PercentualConcluido
@@ -34,7 +34,7 @@ public record EditarTarefaViewModel(
     string Titulo,
     [Required (ErrorMessage = "O campo \"Prioridade\" é obrigatório!")]
     string Prioridade,
-    string DataCricao,
+    string DataCriacao,
     [Required (ErrorMessage = "O campo \"Data de Conclusão\" é obrigatório!")]
     string DataConclusao,
     string StatusDeConclusao,

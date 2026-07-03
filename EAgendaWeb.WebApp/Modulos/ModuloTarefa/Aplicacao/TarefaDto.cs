@@ -5,7 +5,7 @@ public record DetalhesTarefaDto(
     string Id,
     string Titulo,
     string Prioridade,
-    string DataCricao,
+    string DataCriacao,
     string DataConclusao,
     string StatusDeConclusao,
     int PercentualConcluido
@@ -19,7 +19,7 @@ public record ExcluirTarefaDto(
     string Id,
     string Titulo,
     string Prioridade,
-    string DataCricao,
+    string DataCriacao,
     string DataConclusao,
     string StatusDeConclusao,
     int PercentualConcluido
@@ -29,7 +29,7 @@ public record EditarTarefaDto(
     string Id,
     string Titulo,
     string Prioridade,
-    string DataCricao,
+    string DataCriacao,
     string DataConclusao,
     string StatusDeConclusao,
     int PercentualConcluido
