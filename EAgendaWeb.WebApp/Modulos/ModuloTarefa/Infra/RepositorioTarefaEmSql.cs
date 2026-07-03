@@ -8,34 +8,34 @@ namespace EAgendaWeb.WebApp.Modulos.ModuloTarefa.Infra;
 public class RepositorioTarefaEmSql(ISqlConnectionFactory connectionFactory) : IRepositorioTarefa
 {
     private const string InserirSql = """
-        INSERT INTO dbo.TBTarefa (Id, Titulo, Prioridade, DataCriacao, DataConclusao, StatusConclusao)
-        VALUES (@Id, @Titulo, @Prioridade, @DataCriacao, @DataConclusao, @StatusConclusao);
+        INSERT INTO dbo.TBTarefas (Id, Titulo, Prioridade, DataCriacao, DataConclusao, StatusDeConclusao)
+        VALUES (@Id, @Titulo, @Prioridade, @DataCriacao, @DataConclusao, @StatusDeConclusao);
     """;
 
     private const string AtualizarSql = """
-        UPDATE dbo.TBTarefa
+        UPDATE dbo.TBTarefas
         SET Titulo = @Titulo,
         Prioridade = @Prioridade,
         DataCriacao = @DataCriacao,
         DataConclusao = @DataConclusao,
-        StatusConclusao = @StatusConclusao
+        StatusDeConclusao = @StatusDeConclusao
         WHERE Id = @Id;
     """;
 
     private const string ExcluirSql = """
-        DELETE FROM dbo.TBTarefa
+        DELETE FROM dbo.TBTarefas
         WHERE Id = @Id;
     """;
 
     private const string SelecionarPorIdSql = """
-        SELECT Id, Titulo, Prioridade, DataCriacao, DataConclusao, StatusConclusao
-        FROM dbo.TBTarefa
+        SELECT Id, Titulo, Prioridade, DataCriacao, DataConclusao, StatusDeConclusao
+        FROM dbo.TBTarefas
         WHERE Id = @Id;
     """;
 
     private const string SelecionarTodosSql = """
-        SELECT Id, Titulo, Prioridade, DataCriacao, DataConclusao, StatusConclusao
-        FROM dbo.TBTarefa
+        SELECT Id, Titulo, Prioridade, DataCriacao, DataConclusao, StatusDeConclusao
+        FROM dbo.TBTarefas
         ORDER BY Titulo;
     """;
 
