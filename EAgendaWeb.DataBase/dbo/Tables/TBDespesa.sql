@@ -1,8 +1,10 @@
-CREATE TABLE [dbo].[TBDespesa] (
-    [Id]             UNIQUEIDENTIFIER NOT NULL,
-    [Descricao]      NVARCHAR (250)   NOT NULL,
-    [Valor]          DECIMAL (10)     NOT NULL,
-    [FormaPagamento] NVARCHAR (50)    NOT NULL
+CREATE TABLE [dbo].[TBDespesa]
+(
+    [Id] UNIQUEIDENTIFIER NOT NULL,
+    [Descricao] NVARCHAR (250) NOT NULL,
+    [Valor] DECIMAL (10) NOT NULL,
+    [FormaPagamento] NVARCHAR (50) NOT NULL,
+    [DataOcorrencia] DATE NOT NULL
 );
 GO
 
