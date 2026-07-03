@@ -1,21 +1,19 @@
 using AutoMapper;
+using EAgendaWeb.WebApp.Compartilhado.Aplicacao;
 using EAgendaWeb.WebApp.Modulos.ModuloTarefa.Apresentacao;
 using EAgendaWeb.WebApp.Modulos.ModuloTarefa.Dominio;
 using FluentResults;
 
 namespace EAgendaWeb.WebApp.Modulos.ModuloTarefa.Aplicacao;
 
-public class ServicoTarefa
+public class ServicoTarefa : ServicoBase<Tarefa>
 {
     private readonly IRepositorioTarefa repositorioTarefa;
-    private readonly IMapper mapper;
 
     public ServicoTarefa(IRepositorioTarefa repositorioTarefa, IMapper mapper)
     {
         this.repositorioTarefa = repositorioTarefa;
-        this.mapper = mapper;
     }
-
 
     internal Result Cadastrar(CadastroTarefaDto dto)
     {
@@ -76,33 +74,6 @@ public class ServicoTarefa
          t.Prioridade, t.DataCriacao.ToShortDateString(),
          t.DataConclusao.ToShortDateString(), t.StatusDeConclusao.ToString(),
           t.PercentualConcluido);
-    }
-
-    private Result ValidarEntidade(Tarefa tarefa)
-    {
-        List<string> erros = tarefa.Validar();
-
-        if (erros.Count == 0)
-            return Result.Ok();
-
-        var resultado = new Result();
-
-        foreach (string erro in erros)
-        {
-            string campo = string.Empty;
-            string mensagem = erro;
-
-            if (erro.Contains('|'))
-            {
-                var partes = erro.Split('|', 2);
-                campo = partes[0];
-                mensagem = partes[1];
-            }
-
-            resultado.WithError(new Error(mensagem).WithMetadata("Campo", campo));
-        }
-
-        return resultado; // Agora todos os erros vão para o ModelState!
     }
 
     internal void Excluir(ExcluirTarefaDto dto)

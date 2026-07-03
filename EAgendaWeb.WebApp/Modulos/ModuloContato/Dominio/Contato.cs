@@ -37,16 +37,16 @@ public class Contato : EntidadeBase<Contato>
     {
         List<string> erros = [];
 
-        if (Nome.Length < 2 && Nome.Length > 100)
-            erros.Add("O campo \"Nome\" deve conter entre 2 a 100 caracteres");
+        if (Nome.Length < 2 || Nome.Length > 100)
+            erros.Add("Nome|O campo \"Nome\" deve conter entre 2 a 100 caracteres");
 
         bool isValid = new EmailAddressAttribute().IsValid(Email);
 
         if (!isValid)
-            erros.Add("O campo \"Email\" deve conter um Email válido!");
+            erros.Add("Email|O campo \"Email\" deve conter um Email válido!");
 
         if (Email.Length < 2 && Email.Length > 100)
-            erros.Add("O campo \"Nome\" deve conter entre 2 a 100 caracteres");
+            erros.Add("Nome|O campo \"Nome\" deve conter entre 2 a 100 caracteres");
 
         string telefoneEncurtado = Telefone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "");
         bool contemLetraOuSimbolo = false;
@@ -66,10 +66,10 @@ public class Contato : EntidadeBase<Contato>
         }
 
         if (contadorDigitos < 10 || contadorDigitos > 11)
-            erros.Add("O campo \"Telefone\" deve conter entre 10 e 11 dígitos;");
+            erros.Add("Telefone|O campo \"Telefone\" deve conter entre 10 e 11 dígitos;");
 
         if (contemLetraOuSimbolo)
-            erros.Add("O campo \"Telefone\" deve conter apenas dígitos;");
+            erros.Add("Telefone|O campo \"Telefone\" deve conter apenas dígitos;");
 
         return erros;
     }

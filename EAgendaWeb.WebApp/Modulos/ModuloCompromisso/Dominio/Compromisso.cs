@@ -52,13 +52,13 @@ public class Compromisso : EntidadeBase<Compromisso>
         List<string> erros = [];
 
         if (Assunto.Length < 2 || Assunto.Length > 100)
-            erros.Add("O campo \"Assunto\" deve conter entre 2 à 100 caracteres");
+            erros.Add("Assunto|O campo \"Assunto\" deve conter entre 2 à 100 caracteres");
 
         if (DataOcorrencia < DateTime.Now)
-            erros.Add("A data do Compromisso deve ser posterior a data atual");
+            erros.Add("DataOcorrencia|A data do Compromisso deve ser posterior a data atual");
 
         if (HoraTermino < HoraInicio)
-            erros.Add("A Hora de Terminio deve ser POSTERIOR a hora de Inicio");
+            erros.Add("HoraInicio|A Hora de Terminio deve ser POSTERIOR a hora de Inicio");
 
         return erros;
     }

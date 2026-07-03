@@ -25,10 +25,10 @@ public class Categoria : EntidadeBase<Categoria>
         List<string> erros = [];
 
         if (String.IsNullOrWhiteSpace(Titulo))
-            erros.Add("O campo \"Titulo\" não pode ser vazio");
+            erros.Add("Titulo|O campo \"Titulo\" não pode ser vazio");
 
         if (Titulo.Length < 2 || Titulo.Length > 100)
-            erros.Add("O campo \"Titulo\" deve conter entre 2 a 100 caracteres");
+            erros.Add("Titulo|O campo \"Titulo\" deve conter entre 2 a 100 caracteres");
 
         return erros;
     }

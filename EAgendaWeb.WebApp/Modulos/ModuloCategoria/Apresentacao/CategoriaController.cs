@@ -1,4 +1,6 @@
+using EAgendaWeb.WebApp.Compartilhado.Apresentacao.Extensions;
 using EAgendaWeb.WebApp.Modulos.ModuloCategoria.Dominio;
+using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EAgendaWeb.WebApp.Modulos.ModuloCategoria.Apresentacao;
@@ -35,6 +37,16 @@ public class CategoriaController : Controller
     public ActionResult Cadastrar(CadastrarCategoriaViewModel vm)
     {
         Categoria novaCategoria = new(vm.Titulo);
+
+        Result resultado = ValidarEntidade(novaCategoria);
+
+        if (resultado.IsFailed)
+        {
+            ModelState.AddModelError(resultado);
+
+            return View(vm);
+        }
+
         repositorioCategoria.Cadastrar(novaCategoria);
         return RedirectToAction(nameof(Listar));
     }
@@ -58,8 +70,44 @@ public class CategoriaController : Controller
     public ActionResult Editar(EditarCategoriaViewModel vm)
     {
         Categoria categoria = new(vm.Titulo);
+
+        Result resultado = ValidarEntidade(categoria);
+
+        if (resultado.IsFailed)
+        {
+            ModelState.AddModelError(resultado);
+
+            return View(vm);
+        }
+
         repositorioCategoria.Editar(new Guid(vm.Id), categoria);
         return RedirectToAction(nameof(Listar));
+    }
+    private static Result ValidarEntidade(Categoria entidade)
+    {
+        List<string> erros = entidade.Validar();
+
+        if (erros.Count == 0)
+            return Result.Ok();
+
+        var resultado = new Result();
+
+        foreach (string erro in erros)
+        {
+            string campo = string.Empty;
+            string mensagem = erro;
+
+            if (erro.Contains('|'))
+            {
+                var partes = erro.Split('|', 2);
+                campo = partes[0];
+                mensagem = partes[1];
+            }
+
+            resultado.WithError(new Error(mensagem).WithMetadata("Campo", campo));
+        }
+
+        return resultado; // Agora todos os erros vão para o ModelState!
     }
 
 }

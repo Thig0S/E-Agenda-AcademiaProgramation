@@ -123,6 +123,13 @@ public class CompromissoController : Controller
 
         Result resultado = servicoCompromisso.Editar(dto);
 
+        if (resultado.IsFailed)
+        {
+            ModelState.AddModelError(resultado);
+
+            return View(vm);
+        }
+
         return RedirectToAction(nameof(Listar));
     }
 }

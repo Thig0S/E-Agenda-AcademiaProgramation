@@ -1,12 +1,12 @@
 using AutoMapper;
+using EAgendaWeb.WebApp.Compartilhado.Aplicacao;
 using EAgendaWeb.WebApp.Modulos.ModuloCompromisso.Dominio;
 using EAgendaWeb.WebApp.Modulos.ModuloContato.Dominio;
 using FluentResults;
-using Microsoft.AspNetCore.Http.Features;
 
 namespace EAgendaWeb.WebApp.Modulos.ModuloCompromisso.Aplicacao;
 
-public class ServicoCompromisso
+public class ServicoCompromisso : ServicoBase<Compromisso>
 {
     private readonly IRepositorioCompromisso repositorioCompromisso;
     private readonly IRepositorioContato repositorioContato;
@@ -39,15 +39,6 @@ public class ServicoCompromisso
         repositorioCompromisso.Cadastrar(novoCompromisso);
 
         return Result.Ok();
-    }
-    private static Result ValidarEntidade(Compromisso compromisso)
-    {
-        List<string> erros = compromisso.Validar();
-
-        if (erros.Count == 0)
-            return Result.Ok();
-
-        return Result.Fail(new FluentResults.Error(erros.First()).WithMetadata("Campo", string.Empty));
     }
     internal List<DetalhesCompromissoDto> SelecionarTodos()
     {

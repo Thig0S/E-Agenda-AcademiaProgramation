@@ -1,10 +1,11 @@
 using AutoMapper;
+using EAgendaWeb.WebApp.Compartilhado.Aplicacao;
 using EAgendaWeb.WebApp.Modulos.ModuloContato.Dominio;
 using FluentResults;
 
 namespace EAgendaWeb.WebApp.Modulos.ModuloContato.Aplicacao;
 
-public class ServicoContato
+public class ServicoContato : ServicoBase<Contato>
 {
     private readonly IRepositorioContato repositorioContato;
     private readonly IMapper mapper;
@@ -34,16 +35,6 @@ public class ServicoContato
 
         return Result.Ok();
     }
-    private static Result ValidarEntidade(Contato novoContato)
-    {
-        List<string> erros = novoContato.Validar();
-
-        if (erros.Count == 0)
-            return Result.Ok();
-
-        return Result.Fail(new FluentResults.Error(erros.First()).WithMetadata("Campo", string.Empty));
-    }
-
     private bool ExisteContatoComMesmoTelefone(string telefone, Guid? idIgnorado = null)
     {
         return repositorioContato.SelecionarTodos().Any(c => c.Id != idIgnorado &&
@@ -55,10 +46,6 @@ public class ServicoContato
         return repositorioContato.SelecionarTodos().Any(c => c.Id != idIgnorado &&
         string.Equals(c.Email, email, StringComparison.OrdinalIgnoreCase)
         );
-    }
-    private static Result Falha(string campo, string mensagem)
-    {
-        return Result.Fail(new FluentResults.Error(mensagem).WithMetadata("Campo", campo));
     }
     internal List<DetalhesContatoDto> SelecionarTodos()
     {
@@ -95,13 +82,17 @@ public class ServicoContato
         repositorioContato.Excluir(guid);
 
         return Result.Ok();
-
     }
 
     internal Result Editar(EditarContatoDto dto)
     {
         Guid guid = new(dto.Id);
         Contato contatoAtualizado = new(dto.Nome, dto.Email, dto.Telefone, dto.Cargo!, dto.Empresa!);
+
+        Result resultadoValidacao = ValidarEntidade(contatoAtualizado);
+
+        if (resultadoValidacao.IsFailed)
+            return resultadoValidacao;
 
         if (ExisteContatoComMesmoTelefone(contatoAtualizado.Telefone, guid))
             return Falha(nameof(dto.Telefone), "Já existe um Contato com este Telefone.");
