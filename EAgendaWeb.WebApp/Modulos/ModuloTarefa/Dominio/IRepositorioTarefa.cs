@@ -8,4 +8,5 @@ public interface IRepositorioTarefa : IRepositorio<Tarefa>
     void AdicionarItem(ItensTarefa novoItem);
     void ConcluirItem(ConcluirItemDto dto);
     bool ExcluirItem(ExcluirItemDto dto);
+    void ReabrirItem(ReabrirIteDto dto);
 }

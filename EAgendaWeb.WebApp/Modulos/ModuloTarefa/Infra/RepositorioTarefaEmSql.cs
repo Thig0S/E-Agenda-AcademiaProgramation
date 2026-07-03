@@ -29,6 +29,12 @@ public class RepositorioTarefaEmSql(ISqlConnectionFactory connectionFactory) : I
         WHERE Id = @Id;
     """;
 
+    private const string ReabrirItemSql = """
+        UPDATE dbo.TBItensTarefa
+        SET Concluido = 0
+        WHERE Id = @Id;
+    """;
+
     private const string AtualizarSql = """
         UPDATE dbo.TBTarefas
         SET Titulo = @Titulo,
@@ -71,6 +77,13 @@ public class RepositorioTarefaEmSql(ISqlConnectionFactory connectionFactory) : I
         using SqlConnection conexao = connectionFactory.CreateConnection();
 
         conexao.Execute(InserirItemSql, novoItem);
+    }
+
+    public void ReabrirItem(ReabrirIteDto novoItem)
+    {
+        using SqlConnection conexao = connectionFactory.CreateConnection();
+
+        conexao.Execute(ReabrirItemSql, novoItem);
     }
 
     public bool Editar(Guid idSelecionado, Tarefa entidadeAtualizada)

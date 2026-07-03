@@ -130,4 +130,13 @@ public class TarefaController : Controller
 
         return RedirectToAction(nameof(MostrarItens), new { id = vm.TarefaId });
     }
+    [HttpPost]
+    public ActionResult ReabrirItem(ReabrirItemViewModel vm)
+    {
+        ReabrirIteDto dto = mapper.Map<ReabrirIteDto>(vm);
+
+        servicoTarefa.ReabrirTarefa(dto);
+
+        return RedirectToAction(nameof(MostrarItens), new { id = vm.TarefaId });
+    }
 }

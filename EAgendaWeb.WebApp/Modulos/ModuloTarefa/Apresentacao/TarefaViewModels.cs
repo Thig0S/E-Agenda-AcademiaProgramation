@@ -65,3 +65,7 @@ public record ConcluirItemViewModel(
     string Id,
     string TarefaId
 );
+public record ReabrirItemViewModel(
+    string Id,
+    string TarefaId
+);

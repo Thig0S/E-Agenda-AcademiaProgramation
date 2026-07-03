@@ -61,3 +61,7 @@ public record ConcluirItemDto(
     string Id,
     string TarefaId
 );
+public record ReabrirIteDto(
+    string Id,
+    string TarefaId
+);

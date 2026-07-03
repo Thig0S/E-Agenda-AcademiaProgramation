@@ -162,6 +162,17 @@ public class ServicoTarefa
         if (dto.TarefaId == null)
             throw new Exception("Tarefa não encontrada!");
 
-            repositorioTarefa.ConcluirItem(dto);
+        repositorioTarefa.ConcluirItem(dto);
+    }
+
+    internal void ReabrirTarefa(ReabrirIteDto dto)
+    {
+        if (dto.Id == null)
+            throw new Exception("Item Tarefa não encontrado!");
+
+        if (dto.TarefaId == null)
+            throw new Exception("Tarefa não encontrada!");
+
+        repositorioTarefa.ReabrirItem(dto);
     }
 }
