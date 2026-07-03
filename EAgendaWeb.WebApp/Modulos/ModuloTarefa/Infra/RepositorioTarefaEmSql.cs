@@ -83,6 +83,7 @@ public class RepositorioTarefaEmSql(ISqlConnectionFactory connectionFactory) : I
 
     public Tarefa? SelecionarPorId(Guid id)
     {
+        //aqui foi IA dmssssss
         using SqlConnection conexao = connectionFactory.CreateConnection();
 
         Tarefa? tarefaResult = null;

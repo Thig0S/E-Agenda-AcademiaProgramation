@@ -6,14 +6,16 @@ public class ItensTarefa : EntidadeBase<ItensTarefa>
 {
     public string Titulo { get; set; } = string.Empty;
     public bool Concluido { get; set; }
+    public Guid TarefaId { get; set; }
 
     public ItensTarefa()
     {
     }
 
-    public ItensTarefa(string titulo) : this()
+    public ItensTarefa(string titulo, Tarefa tarefa) : this()
     {
         Titulo = titulo;
+        TarefaId = tarefa.Id;
     }
 
     public override List<string> Validar()

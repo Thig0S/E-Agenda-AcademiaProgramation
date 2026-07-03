@@ -128,4 +128,18 @@ public class ServicoTarefa
 
         return Result.Ok();
     }
+
+    internal void AdicionarTarefa(CadastrarItemDto dto)
+    {
+
+        Tarefa? tarefaSelecionada = repositorioTarefa.SelecionarPorId(new Guid(dto.TarefaId));
+
+        if (tarefaSelecionada == null)
+            throw new Exception("Tarefa não encontrada!");
+
+        ItensTarefa novoItensTarefa = new(dto.Titulo, tarefaSelecionada);
+
+        repositorioTarefa.AdicionarItem(novoItensTarefa);
+        
+    }
 }

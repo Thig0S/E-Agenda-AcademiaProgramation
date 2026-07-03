@@ -48,7 +48,10 @@ public record MostrarItensTarefaViewModel(
     int PercentualConcluido,
     List<ItensDaTarefaViewModel> ListaDeItens
 );
-
+public record CadastrarItemViewModel(
+    string TarefaId,
+    string Titulo
+);
 public record ItensDaTarefaViewModel(
     string Id,
     string Titulo,

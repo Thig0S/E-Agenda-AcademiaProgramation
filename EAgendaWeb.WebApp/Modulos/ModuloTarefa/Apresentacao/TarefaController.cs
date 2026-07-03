@@ -103,4 +103,13 @@ public class TarefaController : Controller
 
         return View(vm);
     }
+    [HttpPost]
+    public ActionResult AdicionarItem(CadastrarItemViewModel vm)
+    {
+        CadastrarItemDto dto = mapper.Map<CadastrarItemDto>(vm);
+
+        servicoTarefa.AdicionarTarefa(dto);
+
+        return RedirectToAction(nameof(MostrarItens), new { id = vm.TarefaId });
+    }
 }

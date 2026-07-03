@@ -49,3 +49,7 @@ public record ItensDaTarefaDto(
     string Titulo,
     bool Concluido
 );
+public record CadastrarItemDto(
+    string TarefaId,
+    string Titulo
+);
