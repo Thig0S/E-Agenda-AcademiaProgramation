@@ -31,8 +31,23 @@ public class ServicoTarefa
     {
         Tarefa novaTarefa = new(dto.Titulo, dto.Prioridade, Convert.ToDateTime(dto.DataConclusao));
 
+        Result resultadoValidacao = ValidarEntidade(novaTarefa);
+
+        if (resultadoValidacao.IsFailed)
+            return resultadoValidacao;
+
         repositorioTarefa.Cadastrar(novaTarefa);
 
         return Result.Ok();
+    }
+
+    private Result ValidarEntidade(Tarefa tarefa)
+    {
+        List<string> erros = tarefa.Validar();
+
+        if (erros.Count == 0)
+            return Result.Ok();
+
+        return Result.Fail(new Error(erros.First()).WithMetadata("Campo", string.Empty));
     }
 }

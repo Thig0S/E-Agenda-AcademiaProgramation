@@ -51,7 +51,12 @@ public class Tarefa : EntidadeBase<Tarefa>
 
     public override List<string> Validar()
     {
-        throw new NotImplementedException();
+        List<string> erros = [];
+
+        if (Titulo.Length < 2 || Titulo.Length > 100)
+            erros.Add("O campo \"Titulo\" deve conter entre 2 à 100 caracteres!");
+
+        return erros;
     }
     public void AddParaLista(ItensTarefa itenTarefa)
     {

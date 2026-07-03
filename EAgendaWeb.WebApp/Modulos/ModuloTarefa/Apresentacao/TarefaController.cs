@@ -1,7 +1,9 @@
 using AutoMapper;
+using EAgendaWeb.WebApp.Compartilhado.Apresentacao.Extensions;
 using EAgendaWeb.WebApp.Modulos.ModuloTarefa.Aplicacao;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace EAgendaWeb.WebApp.Modulos.ModuloTarefa.Apresentacao;
 
@@ -38,6 +40,12 @@ public class TarefaController : Controller
         CadastroTarefaDto dto = mapper.Map<CadastroTarefaDto>(vm);
 
         Result resultado = servicoTarefa.Cadastrar(dto);
+
+        if (resultado.IsFailed)
+        {
+            ModelState.AddModelError(resultado);
+            return View(vm);
+        }
 
         return RedirectToAction(nameof(Listar));
     }
