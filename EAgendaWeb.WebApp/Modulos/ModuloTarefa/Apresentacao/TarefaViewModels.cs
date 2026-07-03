@@ -61,3 +61,7 @@ public record ExcluirItemViewModel(
     string Id,
     string TarefaId
 );
+public record ConcluirItemViewModel(
+    string Id,
+    string TarefaId
+);

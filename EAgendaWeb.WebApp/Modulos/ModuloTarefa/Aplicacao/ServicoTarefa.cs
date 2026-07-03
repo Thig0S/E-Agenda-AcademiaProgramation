@@ -153,4 +153,15 @@ public class ServicoTarefa
 
         repositorioTarefa.ExcluirItem(dto);
     }
+
+    internal void ConcluirTarefa(ConcluirItemDto dto)
+    {
+        if (dto.Id == null)
+            throw new Exception("Item Tarefa não encontrado!");
+
+        if (dto.TarefaId == null)
+            throw new Exception("Tarefa não encontrada!");
+
+            repositorioTarefa.ConcluirItem(dto);
+    }
 }

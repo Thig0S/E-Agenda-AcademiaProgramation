@@ -18,6 +18,7 @@ public class TarefaProfile : Profile
         CreateMap<ItensDaTarefaDto, ItensDaTarefaViewModel>();
         CreateMap<MostrarItensTarefaDto, MostrarItensTarefaViewModel>();
         CreateMap<ExcluirItemViewModel, ExcluirItemDto>();
+        CreateMap<ConcluirItemViewModel, ConcluirItemDto>();
 
         // Mapeamento do filho
         CreateMap<ItensTarefa, ItensDaTarefaDto>()

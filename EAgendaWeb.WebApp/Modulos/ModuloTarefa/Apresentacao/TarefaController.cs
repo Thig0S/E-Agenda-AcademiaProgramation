@@ -121,4 +121,13 @@ public class TarefaController : Controller
 
         return RedirectToAction(nameof(MostrarItens), new { id = vm.TarefaId });
     }
+    [HttpPost]
+    public ActionResult ConcluirItem(ConcluirItemViewModel vm)
+    {
+        ConcluirItemDto dto = mapper.Map<ConcluirItemDto>(vm);
+
+        servicoTarefa.ConcluirTarefa(dto);
+
+        return RedirectToAction(nameof(MostrarItens), new { id = vm.TarefaId });
+    }
 }

@@ -23,6 +23,12 @@ public class RepositorioTarefaEmSql(ISqlConnectionFactory connectionFactory) : I
         WHERE Id = @Id;
     """;
 
+    private const string ConcluirItemSql = """
+        UPDATE dbo.TBItensTarefa
+        SET Concluido = 1
+        WHERE Id = @Id;
+    """;
+
     private const string AtualizarSql = """
         UPDATE dbo.TBTarefas
         SET Titulo = @Titulo,
@@ -144,5 +150,12 @@ public class RepositorioTarefaEmSql(ISqlConnectionFactory connectionFactory) : I
         return SelecionarTodos().FindAll(filtro);
     }
 
+    public void ConcluirItem(ConcluirItemDto dto)
+    {
+        using SqlConnection conexao = connectionFactory.CreateConnection();
 
+        conexao.Open();
+
+        conexao.Execute(ConcluirItemSql, dto);
+    }
 }

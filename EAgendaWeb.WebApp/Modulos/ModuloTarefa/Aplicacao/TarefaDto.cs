@@ -57,3 +57,7 @@ public record ExcluirItemDto(
     string Id,
     string TarefaId
 );
+public record ConcluirItemDto(
+    string Id,
+    string TarefaId
+);
