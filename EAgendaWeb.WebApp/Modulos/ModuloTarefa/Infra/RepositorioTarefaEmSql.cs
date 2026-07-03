@@ -12,6 +12,11 @@ public class RepositorioTarefaEmSql(ISqlConnectionFactory connectionFactory) : I
         VALUES (@Id, @Titulo, @Prioridade, @DataCriacao, @DataConclusao, @StatusDeConclusao);
     """;
 
+    private const string InserirItemSql = """
+        INSERT INTO dbo.TBItensTarefa (Id, Titulo, StatusConclusao, TarefaId)
+        VALUES (@Id, @Titulo, @StatusConclusao, @TarefaId);
+    """;
+
     private const string AtualizarSql = """
         UPDATE dbo.TBTarefas
         SET Titulo = @Titulo,
@@ -26,9 +31,12 @@ public class RepositorioTarefaEmSql(ISqlConnectionFactory connectionFactory) : I
     """;
 
     private const string SelecionarPorIdSql = """
-        SELECT Id, Titulo, Prioridade, DataCriacao, DataConclusao, StatusDeConclusao
-        FROM dbo.TBTarefas
-        WHERE Id = @Id;
+        SELECT 
+            t.Id, t.Titulo, t.Prioridade, t.DataCriacao, t.DataConclusao, t.StatusDeConclusao,
+            i.Id, i.Titulo, i.StatusConclusao, i.TarefaId
+        FROM dbo.TBTarefas t
+        LEFT JOIN dbo.TBItensTarefa i ON t.Id = i.TarefaId
+        WHERE t.Id = @Id;
     """;
 
     private const string SelecionarTodosSql = """
@@ -44,6 +52,13 @@ public class RepositorioTarefaEmSql(ISqlConnectionFactory connectionFactory) : I
         conexao.Open();
 
         conexao.Execute(InserirSql, entidade);
+    }
+
+    public void AdicionarItem(ItensTarefa novoItem)
+    {
+        using SqlConnection conexao = connectionFactory.CreateConnection();
+
+        conexao.Execute(InserirItemSql, novoItem);
     }
 
     public bool Editar(Guid idSelecionado, Tarefa entidadeAtualizada)
@@ -66,13 +81,37 @@ public class RepositorioTarefaEmSql(ISqlConnectionFactory connectionFactory) : I
         return conexao.Execute(ExcluirSql, new { Id = idSelecionado }) == 1;
     }
 
-    public Tarefa? SelecionarPorId(Guid idSelecionado)
+    public Tarefa? SelecionarPorId(Guid id)
     {
         using SqlConnection conexao = connectionFactory.CreateConnection();
 
-        conexao.Open();
+        Tarefa? tarefaResult = null;
 
-        return conexao.QuerySingleOrDefault<Tarefa>(SelecionarPorIdSql, new { Id = idSelecionado });
+        // Indicamos os tipos: <Pai, Filho, Retorno>
+        conexao.Query<Tarefa, ItensTarefa, Tarefa>(
+            SelecionarPorIdSql,
+            (tarefa, item) =>
+            {
+                // Se for a primeira linha do resultado, guardamos a Tarefa principal
+                if (tarefaResult == null)
+                {
+                    tarefaResult = tarefa;
+                    tarefaResult.Tarefas = new List<ItensTarefa>(); // Garanta que a lista está inicializada
+                }
+
+                // Se a tarefa tiver itens (o LEFT JOIN não veio nulo), adicionamos à lista
+                if (item != null)
+                {
+                    tarefaResult.Tarefas.Add(item);
+                }
+
+                return tarefa;
+            },
+            new { Id = id },
+            splitOn: "Id" // O Dapper usa isso para saber onde termina a tabela Tarefas e começa a TBItensTarefa
+        );
+
+        return tarefaResult;
     }
 
     public List<Tarefa> SelecionarTodos()
