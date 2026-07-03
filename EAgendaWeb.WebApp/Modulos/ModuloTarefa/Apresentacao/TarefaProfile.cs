@@ -8,5 +8,6 @@ public class TarefaProfile : Profile
     public TarefaProfile()
     {
         CreateMap<DetalhesTarefaDto, ListarTarefaViewModel>();
+        CreateMap<CadastroTarefaViewModel, CadastroTarefaDto>();
     }
 }

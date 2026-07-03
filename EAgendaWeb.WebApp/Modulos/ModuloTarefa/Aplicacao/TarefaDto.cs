@@ -10,3 +10,8 @@ public record DetalhesTarefaDto(
     string StatusDeConclusao,
     int PercentualConcluido
 );
+public record CadastroTarefaDto(
+    string Titulo,
+    string Prioridade,
+    string DataConclusao
+);

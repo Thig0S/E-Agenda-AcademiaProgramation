@@ -2,13 +2,19 @@ using EAgendaWeb.WebApp.Compartilhado.Dominio;
 
 namespace EAgendaWeb.WebApp.Modulos.ModuloTarefa.Dominio;
 
+public enum StatusConclusaoTarefa
+{
+    Aberto,
+    Concluido
+}
+
 public class Tarefa : EntidadeBase<Tarefa>
 {
     public string Titulo { get; set; }
     public string Prioridade { get; set; }
-    public DateTime DataCricao { get; set; } = DateTime.Now;
+    public DateTime DataCriacao { get; set; } = DateTime.Now;
     public DateTime DataConclusao { get; set; }
-    public string? StatusDeConclusao { get; set; }
+    public StatusConclusao StatusDeConclusao { get; set; } = StatusConclusao.Aberto;
     public int PercentualConcluido
     {
         get
@@ -28,12 +34,11 @@ public class Tarefa : EntidadeBase<Tarefa>
     {
 
     }
-    public Tarefa(string titulo, string prioridade, DateTime dataConclusao, List<ItensTarefa> tarefas)
+    public Tarefa(string titulo, string prioridade, DateTime dataConclusao)
     {
         Titulo = titulo;
         Prioridade = prioridade;
         DataConclusao = dataConclusao;
-        Tarefas = tarefas;
     }
 
     public override void Atualizar(Tarefa entidadeAtualizada)

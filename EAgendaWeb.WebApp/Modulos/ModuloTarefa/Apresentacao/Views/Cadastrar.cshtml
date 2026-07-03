@@ -1,0 +1,41 @@
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Cadastro de Tarefa";
+}
+
+@model CadastroTarefaViewModel;
+
+<form class="card border-primary-subtle shadow-sm mx-auto p-4" style="max-width: 620px;" asp-action="Cadastrar"
+      method="post">
+
+    <div class="mb-3">
+        <label asp-for="Titulo" class="form-label fw-semibold text-primary text-uppercase small">Titulo</label>
+        <input asp-for="Titulo" type="text" class="form-control" placeholder="Ex: Lavar o Cachorro">
+        <span asp-validation-for="Titulo" class="text-danger small fw-semibold"></span>
+    </div>
+
+    <div class="row">
+        <div class="mb-3">
+            <label asp-for="DataConclusao" class="form-label fw-semibold text-primary text-uppercase small">Data de
+                Conclusão</label>
+                <input asp-for="DataConclusao" type="date" class="form-control">
+                <span asp-validation-for="DataConclusao" class="text-danger small fw-semibold"></span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Prioridade" class="form-label fw-semibold text-primary text-uppercase small">Prioridade</label>
+            <select asp-for="Prioridade" class="form-select" id="tipoCompromisso">
+                <option value="">Selecione...</option>
+                <option value="Alta">Alta</option>
+                <option value="Media">Media</option>
+                <option value="Baixa">Baixa</option>
+            </select>
+            <span asp-validation-for="Prioridade" class="text-danger small fw-semibold"></span>
+        </div>
+
+        <div class="d-flex justify-content-end gap-2 mt-4">
+            <a class="btn btn-outline-primary rounded-pill px-4" asp-action="Listar">Voltar</a>
+            <button class="btn btn-primary rounded-pill px-4" type="submit">Confirmar</button>
+        </div>
+    </form>

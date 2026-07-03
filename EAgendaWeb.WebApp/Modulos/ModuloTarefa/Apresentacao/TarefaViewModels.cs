@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace EAgendaWeb.WebApp.Modulos.ModuloTarefa.Apresentacao;
 
 public record ListarTarefaViewModel(
@@ -8,4 +10,12 @@ public record ListarTarefaViewModel(
     string DataConclusao,
     string StatusDeConclusao,
     int PercentualConcluido
+);
+public record CadastroTarefaViewModel(
+    [Required (ErrorMessage = "O campo \"Titulo\" é obrigatório!")]
+    string Titulo,
+    [Required (ErrorMessage = "O campo \"Prioridade\" é obrigatório!")]
+    string Prioridade,
+    [Required (ErrorMessage = "O campo \"Data de Conclusão\" é obrigatório!")]
+    string DataConclusao
 );

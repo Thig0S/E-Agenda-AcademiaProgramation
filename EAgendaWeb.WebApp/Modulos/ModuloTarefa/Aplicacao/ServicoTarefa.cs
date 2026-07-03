@@ -1,5 +1,6 @@
 using AutoMapper;
 using EAgendaWeb.WebApp.Modulos.ModuloTarefa.Dominio;
+using FluentResults;
 
 namespace EAgendaWeb.WebApp.Modulos.ModuloTarefa.Aplicacao;
 
@@ -19,10 +20,19 @@ public class ServicoTarefa
             t.Id.ToString(),
             t.Titulo,
             t.Prioridade,
-            t.DataCricao.ToString(),
+            t.DataCriacao.ToString(),
             t.DataConclusao.ToString(),
             t.StatusDeConclusao!.ToString(),
             t.PercentualConcluido
         )).ToList();
+    }
+
+    internal Result Cadastrar(CadastroTarefaDto dto)
+    {
+        Tarefa novaTarefa = new(dto.Titulo, dto.Prioridade, Convert.ToDateTime(dto.DataConclusao));
+
+        repositorioTarefa.Cadastrar(novaTarefa);
+
+        return Result.Ok();
     }
 }
