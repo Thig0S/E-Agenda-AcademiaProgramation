@@ -49,4 +49,12 @@ public class TarefaController : Controller
 
         return RedirectToAction(nameof(Listar));
     }
+    public ActionResult Excluir(string id)
+    {
+        DetalhesTarefaDto dto = servicoTarefa.SelecionarPorId(id);
+
+        ExcluirTarefaViewModel vm = mapper.Map<ExcluirTarefaViewModel>(dto);
+
+        return View(vm);
+    }
 }

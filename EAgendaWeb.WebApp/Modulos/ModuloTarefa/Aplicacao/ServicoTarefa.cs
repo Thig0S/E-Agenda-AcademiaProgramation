@@ -14,18 +14,7 @@ public class ServicoTarefa
         this.repositorioTarefa = repositorioTarefa;
         this.mapper = mapper;
     }
-    public List<DetalhesTarefaDto> SelecionarTodos()
-    {
-        return repositorioTarefa.SelecionarTodos().Select(t => new DetalhesTarefaDto(
-            t.Id.ToString(),
-            t.Titulo,
-            t.Prioridade,
-            t.DataCriacao.ToShortDateString(),
-            t.DataConclusao.ToShortDateString(),
-            t.StatusDeConclusao!.ToString(),
-            t.PercentualConcluido
-        )).ToList();
-    }
+
 
     internal Result Cadastrar(CadastroTarefaDto dto)
     {
@@ -39,6 +28,30 @@ public class ServicoTarefa
         repositorioTarefa.Cadastrar(novaTarefa);
 
         return Result.Ok();
+    }
+    public List<DetalhesTarefaDto> SelecionarTodos()
+    {
+        return repositorioTarefa.SelecionarTodos().Select(t => new DetalhesTarefaDto(
+            t.Id.ToString(),
+            t.Titulo,
+            t.Prioridade,
+            t.DataCriacao.ToShortDateString(),
+            t.DataConclusao.ToShortDateString(),
+            t.StatusDeConclusao!.ToString(),
+            t.PercentualConcluido
+        )).ToList();
+    }
+    public DetalhesTarefaDto SelecionarPorId(string Id)
+    {
+        Tarefa? t = repositorioTarefa.SelecionarPorId(new Guid(Id));
+
+        if (t == null)
+            throw new Exception("Tarefa não encontrada!");
+
+        return new DetalhesTarefaDto(t.Id.ToString(), t.Titulo,
+         t.Prioridade, t.DataCriacao.ToShortDateString(),
+         t.DataConclusao.ToShortDateString(), t.StatusDeConclusao.ToString(),
+          t.PercentualConcluido);
     }
 
     private Result ValidarEntidade(Tarefa tarefa)

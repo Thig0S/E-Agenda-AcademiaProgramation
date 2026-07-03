@@ -19,3 +19,12 @@ public record CadastroTarefaViewModel(
     [Required (ErrorMessage = "O campo \"Data de Conclusão\" é obrigatório!")]
     string DataConclusao
 );
+public record ExcluirTarefaViewModel(
+    string Id,
+    string Titulo,
+    string Prioridade,
+    string DataCricao,
+    string DataConclusao,
+    string StatusDeConclusao,
+    int PercentualConcluido
+);

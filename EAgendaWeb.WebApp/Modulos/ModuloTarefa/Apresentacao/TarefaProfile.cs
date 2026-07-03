@@ -9,5 +9,6 @@ public class TarefaProfile : Profile
     {
         CreateMap<DetalhesTarefaDto, ListarTarefaViewModel>();
         CreateMap<CadastroTarefaViewModel, CadastroTarefaDto>();
+        CreateMap<DetalhesTarefaDto, ExcluirTarefaViewModel>();
     }
 }
