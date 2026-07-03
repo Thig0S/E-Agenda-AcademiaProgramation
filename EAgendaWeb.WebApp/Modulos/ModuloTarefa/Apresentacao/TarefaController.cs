@@ -93,4 +93,17 @@ public class TarefaController : Controller
 
         return RedirectToAction(nameof(Listar));
     }
+
+    //Modulo de Itens
+    public ActionResult MostrarItens()
+    {
+        List<ItensDaTarefaViewModel> lista = [];
+        ItensDaTarefaViewModel vm = new("1123123", "pegar toalha", false);
+        lista.Add(vm);
+
+        MostrarItensTarefa itensTarefa = new("11111", "Lavar cachorro", "Alta", "Aberto", 33,
+        lista);
+
+        return View(itensTarefa);
+    }
 }

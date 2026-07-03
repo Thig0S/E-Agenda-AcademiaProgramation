@@ -40,3 +40,17 @@ public record EditarTarefaViewModel(
     string StatusDeConclusao,
     int PercentualConcluido
 );
+public record MostrarItensTarefa(
+    string Id,
+    string Titulo,
+    string Prioridade,
+    string StatusDeConclusao,
+    int PercentualConcluido,
+    List<ItensDaTarefaViewModel> ListaDeItens
+);
+
+public record ItensDaTarefaViewModel(
+    string Id,
+    string Titulo,
+    bool Concluido
+);

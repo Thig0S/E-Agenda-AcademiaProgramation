@@ -2,7 +2,7 @@ using EAgendaWeb.WebApp.Compartilhado.Dominio;
 
 namespace EAgendaWeb.WebApp.Modulos.ModuloTarefa.Dominio;
 
-public enum StatusConclusaoTarefa
+public enum StatusConclusao
 {
     Aberto,
     Concluido
@@ -23,7 +23,7 @@ public class Tarefa : EntidadeBase<Tarefa>
             if (quantidadeItens == 0)
                 return 0;
 
-            int itensConcluidos = Tarefas.Count(i => i.StatusConclusao == StatusConclusao.Concluido);
+            int itensConcluidos = Tarefas.Count(i => i.Concluido == true);
 
             return (itensConcluidos * 100) / quantidadeItens;
         }
