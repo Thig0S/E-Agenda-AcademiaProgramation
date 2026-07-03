@@ -20,8 +20,8 @@ public class ServicoTarefa
             t.Id.ToString(),
             t.Titulo,
             t.Prioridade,
-            t.DataCriacao.ToString(),
-            t.DataConclusao.ToString(),
+            t.DataCriacao.ToShortDateString(),
+            t.DataConclusao.ToShortDateString(),
             t.StatusDeConclusao!.ToString(),
             t.PercentualConcluido
         )).ToList();
