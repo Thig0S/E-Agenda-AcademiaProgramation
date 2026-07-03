@@ -9,7 +9,7 @@
 
     <h3 class="mb-4 fw-bold text-dark">Itens da Tarefa</h3>
 
-    <div class="card mb-3 shadow-sm border-light">
+    <div class="card mb-3 shadow-sm ">
         <div class="card-body p-4">
             <div class="d-flex justify-content-between align-items-start mb-3">
                 <div>
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="card mb-3 shadow-sm border-light">
+    <div class="card mb-3 shadow-sm ">
         <div class="card-body p-4">
             <form asp-action="AdicionarItem" method="post">
                 <input type="hidden" name="TarefaId" value="@Model.Id" />
@@ -36,13 +36,13 @@
                 <div class="input-group">
                     <input type="text" id="tituloNovoItem" name="Titulo" class="form-control form-control-lg"
                            placeholder="" required>
-                    <button class="btn btn-primary px-5 fw-bold" type="submit">Adicionar</button>
+                    <button class="btn btn-primary px-5" type="submit">Adicionar</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <div class="card shadow-sm border-light mb-5">
+    <div class="card shadow-sm  mb-5">
         <div class="card-body p-4">
             @if (Model.ListaDeItens.Count == 0)
             {
