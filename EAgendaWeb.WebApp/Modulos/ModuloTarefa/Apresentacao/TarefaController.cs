@@ -2,6 +2,7 @@ using AutoMapper;
 using EAgendaWeb.WebApp.Compartilhado.Apresentacao.Extensions;
 using EAgendaWeb.WebApp.Modulos.ModuloTarefa.Aplicacao;
 using FluentResults;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -56,5 +57,14 @@ public class TarefaController : Controller
         ExcluirTarefaViewModel vm = mapper.Map<ExcluirTarefaViewModel>(dto);
 
         return View(vm);
+    }
+    [HttpPost]
+    public ActionResult Excluir(ExcluirTarefaViewModel vm)
+    {
+        ExcluirTarefaDto dto = mapper.Map<ExcluirTarefaDto>(vm);
+
+        servicoTarefa.Excluir(dto);
+
+        return RedirectToAction(nameof(Listar));
     }
 }

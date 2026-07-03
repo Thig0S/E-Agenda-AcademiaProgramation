@@ -80,4 +80,14 @@ public class ServicoTarefa
 
         return resultado; // Agora todos os erros vão para o ModelState!
     }
+
+    internal void Excluir(ExcluirTarefaDto dto)
+    {
+        Tarefa? tarefa = repositorioTarefa.SelecionarPorId(new Guid(dto.Id));
+
+        if (tarefa == null)
+            throw new Exception("Tarefa não encotrada!");
+
+        repositorioTarefa.Excluir(new Guid(dto.Id));
+    }
 }
