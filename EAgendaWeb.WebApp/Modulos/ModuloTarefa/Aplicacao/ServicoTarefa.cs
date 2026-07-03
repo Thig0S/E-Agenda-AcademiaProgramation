@@ -140,6 +140,17 @@ public class ServicoTarefa
         ItensTarefa novoItensTarefa = new(dto.Titulo, tarefaSelecionada);
 
         repositorioTarefa.AdicionarItem(novoItensTarefa);
-        
+
+    }
+
+    internal void ExcluirTarefa(ExcluirItemDto dto)
+    {
+        if (dto.Id == null)
+            throw new Exception("Item Tarefa não encontrado!");
+
+        if (dto.TarefaId == null)
+            throw new Exception("Tarefa não encontrada!");
+
+        repositorioTarefa.ExcluirItem(dto);
     }
 }

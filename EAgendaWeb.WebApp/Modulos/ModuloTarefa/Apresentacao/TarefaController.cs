@@ -112,4 +112,13 @@ public class TarefaController : Controller
 
         return RedirectToAction(nameof(MostrarItens), new { id = vm.TarefaId });
     }
+    [HttpPost]
+    public ActionResult RemoverItem(ExcluirItemViewModel vm)
+    {
+        ExcluirItemDto dto = mapper.Map<ExcluirItemDto>(vm);
+
+        servicoTarefa.ExcluirTarefa(dto);
+
+        return RedirectToAction(nameof(MostrarItens), new { id = vm.TarefaId });
+    }
 }

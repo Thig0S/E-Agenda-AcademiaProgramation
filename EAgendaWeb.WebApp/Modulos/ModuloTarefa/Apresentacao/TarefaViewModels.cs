@@ -57,3 +57,7 @@ public record ItensDaTarefaViewModel(
     string Titulo,
     bool Concluido
 );
+public record ExcluirItemViewModel(
+    string Id,
+    string TarefaId
+);

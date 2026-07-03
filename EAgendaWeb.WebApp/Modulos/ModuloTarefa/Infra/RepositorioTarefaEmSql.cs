@@ -1,5 +1,6 @@
 using Dapper;
 using EAgendaWeb.WebApp.Compartilhado.Infra.Sql;
+using EAgendaWeb.WebApp.Modulos.ModuloTarefa.Aplicacao;
 using EAgendaWeb.WebApp.Modulos.ModuloTarefa.Dominio;
 using Microsoft.Data.SqlClient;
 
@@ -15,6 +16,11 @@ public class RepositorioTarefaEmSql(ISqlConnectionFactory connectionFactory) : I
     private const string InserirItemSql = """
         INSERT INTO dbo.TBItensTarefa (Id, Titulo, Concluido, TarefaId)
         VALUES (@Id, @Titulo, @Concluido, @TarefaId);
+    """;
+
+    private const string ExcluirItemSql = """
+        DELETE FROM dbo.TBItensTarefa
+        WHERE Id = @Id;
     """;
 
     private const string AtualizarSql = """
@@ -70,6 +76,15 @@ public class RepositorioTarefaEmSql(ISqlConnectionFactory connectionFactory) : I
         conexao.Open();
 
         return conexao.Execute(AtualizarSql, entidadeAtualizada) == 1;
+    }
+
+    public bool ExcluirItem(ExcluirItemDto dto)
+    {
+        using SqlConnection conexao = connectionFactory.CreateConnection();
+
+        conexao.Open();
+
+        return conexao.Execute(ExcluirItemSql, new { Id = dto.Id }) == 1;
     }
 
     public bool Excluir(Guid idSelecionado)
@@ -128,4 +143,6 @@ public class RepositorioTarefaEmSql(ISqlConnectionFactory connectionFactory) : I
     {
         return SelecionarTodos().FindAll(filtro);
     }
+
+
 }

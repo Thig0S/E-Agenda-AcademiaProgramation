@@ -53,3 +53,7 @@ public record CadastrarItemDto(
     string TarefaId,
     string Titulo
 );
+public record ExcluirItemDto(
+    string Id,
+    string TarefaId
+);
