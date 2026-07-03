@@ -34,3 +34,18 @@ public record EditarTarefaDto(
     string StatusDeConclusao,
     int PercentualConcluido
 );
+
+public record MostrarItensTarefaDto(
+    string Id,
+    string Titulo,
+    string Prioridade,
+    string StatusDeConclusao,
+    int PercentualConcluido,
+    List<ItensDaTarefaDto> ListaDeItens
+);
+
+public record ItensDaTarefaDto(
+    string Id,
+    string Titulo,
+    bool Concluido
+);

@@ -1,4 +1,5 @@
 using AutoMapper;
+using EAgendaWeb.WebApp.Modulos.ModuloTarefa.Apresentacao;
 using EAgendaWeb.WebApp.Modulos.ModuloTarefa.Dominio;
 using FluentResults;
 
@@ -40,6 +41,29 @@ public class ServicoTarefa
             t.StatusDeConclusao!.ToString(),
             t.PercentualConcluido
         )).ToList();
+    }
+    public MostrarItensTarefaDto? SelecionarPorIdTarefaEItensTarefa(string id)
+    {
+        // 1. Busca o objeto único do banco através do repositório
+        Tarefa? tarefa = repositorioTarefa.SelecionarPorId(new Guid(id));
+
+        if (tarefa == null) return null;
+
+        return new MostrarItensTarefaDto(
+            Id: tarefa.Id.ToString(),
+            Titulo: tarefa.Titulo,
+            Prioridade: tarefa.Prioridade.ToString(),
+            StatusDeConclusao: tarefa.StatusDeConclusao.ToString(),
+            PercentualConcluido: tarefa.PercentualConcluido,
+
+            ListaDeItens: tarefa.Tarefas.Select(item => new ItensDaTarefaDto(
+                Id: item.Id.ToString(),
+                Titulo: item.Titulo,
+                Concluido: item.Concluido
+            )).ToList()
+        );
+
+        ;
     }
     public DetalhesTarefaDto SelecionarPorId(string Id)
     {

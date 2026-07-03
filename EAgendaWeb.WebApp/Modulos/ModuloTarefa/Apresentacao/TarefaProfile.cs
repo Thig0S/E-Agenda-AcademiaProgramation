@@ -16,11 +16,12 @@ public class TarefaProfile : Profile
         CreateMap<EditarTarefaViewModel, EditarTarefaDto>();
 
         // Mapeamento do filho
-        CreateMap<ItensTarefa, ItensDaTarefaViewModel>()
+        CreateMap<ItensTarefa, ItensDaTarefaDto>()
             .ForMember(dest => dest.Concluido, opt => opt.MapFrom(src => src.Concluido));
         // ^ Se os nomes (Concluido vs StatusConclusao) forem diferentes, use o ForMember para ensinar o AutoMapper
 
         // Mapeamento do pai (ele vai ver a lista e usar o mapeamento de cima sozinho!)
-        CreateMap<Tarefa, MostrarItensTarefa>();
+        CreateMap<Tarefa, MostrarItensTarefaDto>();
+        CreateMap<MostrarItensTarefaDto, MostrarItensTarefaViewModel>();
     }
 }

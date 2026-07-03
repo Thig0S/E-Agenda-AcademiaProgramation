@@ -95,15 +95,12 @@ public class TarefaController : Controller
     }
 
     //Modulo de Itens
-    public ActionResult MostrarItens()
+    public ActionResult MostrarItens(string id)
     {
-        List<ItensDaTarefaViewModel> lista = [];
-        ItensDaTarefaViewModel vm = new("1123123", "pegar toalha", false);
-        lista.Add(vm);
+        MostrarItensTarefaDto? dto = servicoTarefa.SelecionarPorIdTarefaEItensTarefa(id);
 
-        MostrarItensTarefa itensTarefa = new("11111", "Lavar cachorro", "Alta", "Aberto", 33,
-        lista);
+        MostrarItensTarefaViewModel vm = mapper.Map<MostrarItensTarefaViewModel>(dto);
 
-        return View(itensTarefa);
+        return View(vm);
     }
 }

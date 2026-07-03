@@ -13,8 +13,8 @@ public class RepositorioTarefaEmSql(ISqlConnectionFactory connectionFactory) : I
     """;
 
     private const string InserirItemSql = """
-        INSERT INTO dbo.TBItensTarefa (Id, Titulo, StatusConclusao, TarefaId)
-        VALUES (@Id, @Titulo, @StatusConclusao, @TarefaId);
+        INSERT INTO dbo.TBItensTarefa (Id, Titulo, Concluido, TarefaId)
+        VALUES (@Id, @Titulo, @Concluido, @TarefaId);
     """;
 
     private const string AtualizarSql = """
@@ -33,7 +33,7 @@ public class RepositorioTarefaEmSql(ISqlConnectionFactory connectionFactory) : I
     private const string SelecionarPorIdSql = """
         SELECT 
             t.Id, t.Titulo, t.Prioridade, t.DataCriacao, t.DataConclusao, t.StatusDeConclusao,
-            i.Id, i.Titulo, i.StatusConclusao, i.TarefaId
+            i.Id, i.Titulo, i.Concluido, i.TarefaId
         FROM dbo.TBTarefas t
         LEFT JOIN dbo.TBItensTarefa i ON t.Id = i.TarefaId
         WHERE t.Id = @Id;
