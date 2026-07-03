@@ -28,3 +28,15 @@ public record ExcluirTarefaViewModel(
     string StatusDeConclusao,
     int PercentualConcluido
 );
+public record EditarTarefaViewModel(
+    string Id,
+    [Required (ErrorMessage = "O campo \"Titulo\" é obrigatório!")]
+    string Titulo,
+    [Required (ErrorMessage = "O campo \"Prioridade\" é obrigatório!")]
+    string Prioridade,
+    string DataCricao,
+    [Required (ErrorMessage = "O campo \"Data de Conclusão\" é obrigatório!")]
+    string DataConclusao,
+    string StatusDeConclusao,
+    int PercentualConcluido
+);

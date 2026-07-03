@@ -67,4 +67,12 @@ public class TarefaController : Controller
 
         return RedirectToAction(nameof(Listar));
     }
+    public ActionResult Editar(string id)
+    {
+        DetalhesTarefaDto dto = servicoTarefa.SelecionarPorId(id);
+
+        EditarTarefaViewModel vm = mapper.Map<EditarTarefaViewModel>(dto);
+
+        return View(vm);
+    }
 }
