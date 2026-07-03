@@ -1,0 +1,85 @@
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Listagem de Itens";
+}
+
+@model MostrarItensTarefaViewModel
+
+<div class="container mt-4" style="max-width: 800px;">
+
+    <h3 class="mb-4 fw-bold text-dark">Itens da Tarefa</h3>
+
+    <div class="card mb-3 shadow-sm border-light">
+        <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                    <h5 class="card-title fw-bold mb-1">@Model.Titulo </h5>
+                    <small class="text-muted">Prioridade: @Model.Prioridade | Status: @Model.StatusDeConclusao </small>
+                </div>
+                <span class="badge bg-primary rounded-pill fs-6 px-3 py-2">
+                    @Model.PercentualConcluido%
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card mb-3 shadow-sm border-light">
+        <div class="card-body p-4">
+            <form asp-action="AdicionarItem" method="post">
+                <input type="hidden" name="TarefaId" value="@Model.Id" />
+
+                <label for="tituloNovoItem" class="form-label text-primary fw-bold"
+                       style="font-size: 0.85rem; letter-spacing: 0.5px;">
+                    NOVO ITEM
+                </label>
+                <div class="input-group">
+                    <input type="text" id="tituloNovoItem" name="Titulo" class="form-control form-control-lg"
+                           placeholder="" required>
+                    <button class="btn btn-primary px-5 fw-bold" type="submit">Adicionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-light mb-5">
+        <div class="card-body p-4">
+            @if (Model.ListaDeItens.Count == 0)
+            {
+                <div class="alert alert-primary border-start border-primary border-4 rounded-3" role="alert">
+                    Nenhum Item Cadastrado.
+                </div>
+            }
+            else
+            {
+                @foreach (ItensDaTarefaViewModel item in Model.ListaDeItens)
+                {
+                    <div class="border rounded p-3 mb-3 d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1 fw-bold "> @item.Titulo</h6>
+                            <small class="text-muted"> @(item.Concluido ? "Concluido" : "Pendente")</small>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <form asp-action="ConcluirItem" method="post" class="m-0">
+                                <input type="hidden" name="Id" value="@item.Id" />
+                                <input type="hidden" name="TarefaId" value="@Model.Id" />
+                                <button type="submit" class="btn btn-outline-primary btn-sm rounded-pill px-4">Concluir</button>
+                            </form>
+
+                            <form asp-action="RemoverItem" method="post" class="m-0">
+                                <input type="hidden" name="Id" value="@item.Id" />
+                                <input type="hidden" name="TarefaId" value="@Model.Id" />
+                                <button type="submit" class="btn btn-outline-primary btn-sm rounded-pill px-4">Remover</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            }
+            <div class="text-end mt-4">
+                <a asp-action="Listar" class="btn btn-outline-primary btn-sm rounded-pill px-5">Voltar</a>
+            </div>
+
+        </div>
+    </div>
+</div>
