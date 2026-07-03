@@ -90,4 +90,18 @@ public class ServicoTarefa
 
         repositorioTarefa.Excluir(new Guid(dto.Id));
     }
+
+    internal Result Editar(EditarTarefaDto dto)
+    {
+        Tarefa novaTarefa = new(dto.Titulo, dto.Prioridade, Convert.ToDateTime(dto.DataConclusao));
+
+        Result resultadoValidacao = ValidarEntidade(novaTarefa);
+
+        if (resultadoValidacao.IsFailed)
+            return resultadoValidacao;
+
+        repositorioTarefa.Editar(new Guid(dto.Id), novaTarefa);
+
+        return Result.Ok();
+    }
 }

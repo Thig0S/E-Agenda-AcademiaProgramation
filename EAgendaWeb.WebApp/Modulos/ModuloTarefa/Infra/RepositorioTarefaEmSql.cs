@@ -16,9 +16,7 @@ public class RepositorioTarefaEmSql(ISqlConnectionFactory connectionFactory) : I
         UPDATE dbo.TBTarefas
         SET Titulo = @Titulo,
         Prioridade = @Prioridade,
-        DataCriacao = @DataCriacao,
-        DataConclusao = @DataConclusao,
-        StatusDeConclusao = @StatusDeConclusao
+        DataConclusao = @DataConclusao
         WHERE Id = @Id;
     """;
 

@@ -75,4 +75,22 @@ public class TarefaController : Controller
 
         return View(vm);
     }
+    [HttpPost]
+    public ActionResult Editar(EditarTarefaViewModel vm)
+    {
+        if (!ModelState.IsValid)
+            return View(vm);
+
+        EditarTarefaDto dto = mapper.Map<EditarTarefaDto>(vm);
+
+        Result resultado = servicoTarefa.Editar(dto);
+
+        if (resultado.IsFailed)
+        {
+            ModelState.AddModelError(resultado);
+            return View(vm);
+        }
+
+        return RedirectToAction(nameof(Listar));
+    }
 }
