@@ -1,0 +1,27 @@
+using ProjetoBaseWeb.WebApp.Compartilhado.Aplicacao;
+using ProjetoBaseWeb.WebApp.Compartilhado.Apresentacao;
+using ProjetoBaseWeb.WebApp.Compartilhado.Infra;
+
+var builder = WebApplication.CreateBuilder(args);
+
+if (builder.Environment.IsProduction())
+{
+    builder.Configuration.AddUserSecrets<Program>();
+}
+// Configuração de Dependências (Dependency Injection)
+builder.Services.AddInfraRepositories();
+
+builder.Services.AddApplicationServices(builder.Configuration, builder.Logging);
+
+builder.Services.AddPresentationConfig(builder.Configuration);
+
+var app = builder.Build();
+
+// Configuração de Middlewares
+app.UseStaticFiles();
+
+app.UseRouting();
+app.MapDefaultControllerRoute();
+
+// Execução do Servidor
+app.Run();
