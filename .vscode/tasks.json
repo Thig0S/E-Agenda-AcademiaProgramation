@@ -1,53 +1,53 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "sqlproj: Build ProjetoBaseWeb.Database",
-      "type": "process",
-      "command": "dotnet",
-      "args": [
-        "build",
-        "f:/.trabalho/academia-2026/full-stack/ProjetoBaseWeb/ProjetoBaseWeb.Database/ProjetoBaseWeb.Database.sqlproj"
-      ],
-      "problemMatcher": "$sqlproj-problem-matcher",
-      "isBackground": true,
-      "group": {
-        "kind": "build",
-        "isDefault": false
-      },
-      "detail": "Builds the ProjetoBaseWeb.Database SQL project"
-    },
-    {
-      "label": "sqlproj: Build DboProjetoBase",
-      "type": "process",
-      "command": "dotnet",
-      "args": [
-        "build",
-        "c:/Users/Thiago/Desktop/trabalhos/PROJETOS_ACADEMIA/ProjetoBase/DboProjetoBase/DboProjetoBase.sqlproj"
-      ],
-      "problemMatcher": "$sqlproj-problem-matcher",
-      "isBackground": true,
-      "group": {
-        "kind": "build",
-        "isDefault": false
-      },
-      "detail": "Builds the DboProjetoBase SQL project"
-    },
-    {
-      "label": "sqlproj: Build ProjetoBaseWeb.DataBase",
-      "type": "process",
-      "command": "dotnet",
-      "args": [
-        "build",
-        "c:/Users/Thiago/Desktop/trabalhos/PROJETOS_ACADEMIA/ProjetoBase/ProjetoBaseWeb.DataBase/ProjetoBaseWeb.DataBase.sqlproj"
-      ],
-      "problemMatcher": "$sqlproj-problem-matcher",
-      "isBackground": true,
-      "group": {
-        "kind": "build",
-        "isDefault": false
-      },
-      "detail": "Builds the ProjetoBaseWeb.DataBase SQL project"
-    }
-  ]
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "sqlproj: Build EAgendaWeb.Database",
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"build",
+				"f:/.trabalho/academia-2026/full-stack/EAgendaWeb/EAgendaWeb.Database/EAgendaWeb.Database.sqlproj"
+			],
+			"problemMatcher": "$sqlproj-problem-matcher",
+			"isBackground": true,
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"detail": "Builds the EAgendaWeb.Database SQL project"
+		},
+		{
+			"label": "sqlproj: Build DboEAgenda",
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"build",
+				"c:/Users/Thiago/Desktop/trabalhos/PROJETOS_ACADEMIA/EAgenda/DboEAgenda/DboEAgenda.sqlproj"
+			],
+			"problemMatcher": "$sqlproj-problem-matcher",
+			"isBackground": true,
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"detail": "Builds the DboEAgenda SQL project"
+		},
+		{
+			"label": "sqlproj: Build EAgendaWeb.DataBase",
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"build",
+				"c:/Users/Thiago/Desktop/trabalhos/PROJETOS_ACADEMIA/EAgenda/EAgendaWeb.DataBase/EAgendaWeb.DataBase.sqlproj"
+			],
+			"problemMatcher": "$sqlproj-problem-matcher",
+			"isBackground": true,
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"detail": "Builds the EAgendaWeb.DataBase SQL project"
+		}
+	]
 }

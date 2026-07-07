@@ -1,0 +1,67 @@
+namespace EAgendaWeb.WebApp.Modulos.ModuloTarefa.Aplicacao;
+
+
+public record DetalhesTarefaDto(
+    string Id,
+    string Titulo,
+    string Prioridade,
+    string DataCriacao,
+    string DataConclusao,
+    string StatusDeConclusao,
+    int PercentualConcluido
+);
+public record CadastroTarefaDto(
+    string Titulo,
+    string Prioridade,
+    string DataConclusao
+);
+public record ExcluirTarefaDto(
+    string Id,
+    string Titulo,
+    string Prioridade,
+    string DataCriacao,
+    string DataConclusao,
+    string StatusDeConclusao,
+    int PercentualConcluido
+);
+
+public record EditarTarefaDto(
+    string Id,
+    string Titulo,
+    string Prioridade,
+    string DataCriacao,
+    string DataConclusao,
+    string StatusDeConclusao,
+    int PercentualConcluido
+);
+
+public record MostrarItensTarefaDto(
+    string Id,
+    string Titulo,
+    string Prioridade,
+    string StatusDeConclusao,
+    int PercentualConcluido,
+    List<ItensDaTarefaDto> ListaDeItens
+);
+
+public record ItensDaTarefaDto(
+    string Id,
+    string Titulo,
+    bool Concluido
+);
+public record CadastrarItemDto(
+    string TarefaId,
+    string Titulo
+);
+public record ExcluirItemDto(
+    string Id,
+    string TarefaId
+);
+public record ConcluirItemDto(
+    string Id,
+    string TarefaId
+);
+public record ReabrirIteDto(
+    string Id,
+    string TarefaId
+);

@@ -1,0 +1,114 @@
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Edicao de Compromisso";
+
+    List<SelectListItem> Contatos = ViewBag.Contatos;
+
+}
+
+@model EditarCompromissoViewModel;
+
+<form class="card border-primary-subtle shadow-sm mx-auto p-4" style="max-width: 620px;" asp-action="Editar"
+      asp-route-id="@Model.Id" method="post">
+    <input asp-for="Id" type="hidden">
+
+    <div class="mb-3">
+        <label asp-for="Assunto" class="form-label fw-semibold text-primary text-uppercase small">Assunto</label>
+        <input asp-for="Assunto" type="text" class="form-control">
+        <span asp-validation-for="Assunto" class="text-danger small fw-semibold"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DataOcorrencia" class="form-label fw-semibold text-primary text-uppercase small">Data de
+            Ocorrencia</label>
+            <input asp-for="DataOcorrencia" type="date" class="form-control"
+                   value="@(Model.DataOcorrencia != null ? DateTime.Parse(Model.DataOcorrencia).ToString("yyyy-MM-dd") : "")">
+            <span asp-validation-for=" DataOcorrencia" class="text-danger small fw-semibold"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="HoraInicio" class="form-label fw-semibold text-primary text-uppercase small">Hora de
+                Início</label>
+                <input asp-for="HoraInicio" type="time" class="form-control">
+                <span asp-validation-for="HoraInicio" class="text-danger small fw-semibold"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="HoraTermino" class="form-label fw-semibold text-primary text-uppercase small">Hora de
+                    Término</label>
+                    <input asp-for="HoraTermino" type="time" class="form-control">
+                    <span asp-validation-for="HoraTermino" class="text-danger small fw-semibold"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="TipoDeCompromisso" class="form-label fw-semibold text-primary text-uppercase small">Tipo de
+                    Compromisso</label>
+                    <select asp-for="TipoDeCompromisso" class="form-select" id="tipoCompromisso">
+                        <option value="">Selecione...</option>
+                        <option value="Presencial">Presencial</option>
+                        <option value="Remoto">Remoto</option>
+                    </select>
+                    <span asp-validation-for="TipoDeCompromisso" class="text-danger small fw-semibold"></span>
+                </div>
+
+                <div class="mb-3" id="divLocal" style="display: none;">
+                    <label asp-for="Local" class="form-label fw-semibold text-primary text-uppercase small">Local</label>
+                    <input asp-for="Local" type="text" class="form-control" placeholder="Ex: Sala de Reuniões 1">
+                    <span asp-validation-for="Local" class="text-danger small fw-semibold"></span>
+                </div>
+
+                <div class="mb-3" id="divLink" style="display: none;">
+                    <label asp-for="Link" class="form-label fw-semibold text-primary text-uppercase small">Link da Chamada</label>
+                    <input asp-for="Link" type="url" class="form-control" placeholder="Ex: https://meet.google.com/...">
+                    <span asp-validation-for="Link" class="text-danger small fw-semibold"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Contato" class="form-label fw-semibold text-primary text-uppercase small">Contato</label>
+                    <span class="text-secondary"> *Opcional*</span>
+
+                    <select asp-for="Contato" asp-items="ViewBag.Contatos" class="form-select">
+                        <option value="">Selecione um contato...</option>
+                    </select>
+                    <span asp-validation-for="Contato" class="text-danger small fw-semibold"></span>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    <a class="btn btn-outline-primary rounded-pill px-4" asp-action="Listar">Voltar</a>
+                    <button class="btn btn-primary rounded-pill px-4" type="submit">Confirmar</button>
+                </div>
+            </form>
+            @section Scripts {
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        // Pega os elementos da tela
+                        const selectTipo = document.getElementById("tipoCompromisso");
+                        const divLocal = document.getElementById("divLocal");
+                        const divLink = document.getElementById("divLink");
+
+                        // Função que decide quem aparece e quem some
+                        function alternarCampos() {
+                            const valorSelecionado = selectTipo.value;
+
+                            if (valorSelecionado === "Presencial") {
+                                divLocal.style.display = "block"; // Mostra o Local
+                                divLink.style.display = "none";   // Esconde o Link
+                            }
+                            else if (valorSelecionado === "Remoto") {
+                                divLocal.style.display = "none";  // Esconde o Local
+                                divLink.style.display = "block";  // Mostra o Link
+                            }
+                            else {
+                                // Se estiver em "Selecione...", esconde os dois
+                                divLocal.style.display = "none";
+                                divLink.style.display = "none";
+                            }
+                        }
+
+                        // Executa a função uma vez quando a página carrega
+                        // (Isso é importante caso a tela recarregue por causa de algum erro de validação)
+                        alternarCampos();
+
+                        // Executa a função toda vez que o usuário trocar a opção no select
+                        selectTipo.addEventListener("change", alternarCampos);
+                    });
+                </script>
+            }
